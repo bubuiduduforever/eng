@@ -807,38 +807,7 @@
         .typing-feedback.correct { background: rgba(16, 185, 129, 0.15); color: var(--success); }
         .typing-feedback.wrong { background: rgba(239, 68, 68, 0.15); color: var(--error); }
 
-        /* Microphone Buttons */
-        .mic-btn, .mic-btn-flashcard {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-primary);
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--accent-primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
 
-        .mic-btn:hover, .mic-btn-flashcard:hover {
-            background: var(--accent-gradient);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .mic-btn.listening, .mic-btn-flashcard.listening {
-            background: var(--accent-gradient);
-            color: white;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
 
         /* Listening Mode */
         .listen-btn-large {
@@ -1279,27 +1248,7 @@
 <!-- Hidden file input -->
 <input type="file" id="file-input" accept=".json" style="display: none;" onchange="importJSON(event)">
 
-<!-- Microphone Permission Modal -->
-<div id="mic-permission-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
-    <div style="background: var(--bg-card); border-radius: var(--radius-xl); padding: 32px; max-width: 420px; margin: 20px; text-align: center; border: 1px solid var(--border-subtle); box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
-        <div style="font-size: 64px; margin-bottom: 16px;">🎤</div>
-        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Rozpoznawanie mowy</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; font-size: 15px;">
-            Chcesz używać mikrofonu do nauki?<br>
-            Mów zamiast pisać - szybciej i wygodniej! 🚀
-        </p>
-        <p style="color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; font-size: 13px;">
-            <strong>Tylko dla tej strony</strong> - nie dla całego Chrome.<br>
-            Możesz cofnąć w każdej chwili.
-        </p>
-        <button onclick="handleMicPermissionRequest()" style="width: 100%; padding: 16px; background: var(--accent-gradient); color: white; border: none; border-radius: var(--radius-lg); font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);">
-            🎤 Zezwól dla tej strony
-        </button>
-        <button onclick="closeMicPermissionModal()" style="width: 100%; padding: 12px; background: transparent; color: var(--text-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); font-size: 14px; cursor: pointer;">
-            Nie teraz
-        </button>
-    </div>
-</div>
+
 
 <svg width="0" height="0">
     <defs>
@@ -1340,7 +1289,7 @@
             <button class="icon-btn" onclick="document.getElementById('file-input').click()" title="Import JSON">
                 <span class="material-icons-round">file_upload</span>
             </button>
-            <button class="icon-btn" onclick="exportForMobile()" title="Export">
+            <button class="icon-btn" onclick="exportProgress()" title="Export Progress">
                 <span class="material-icons-round">file_download</span>
             </button>
             <button class="icon-btn" onclick="resetProgress()" title="Reset">
@@ -1476,6 +1425,12 @@
                 <div class="mode-title">Speed Round</div>
                 <div class="mode-desc">Quick fire 30-second challenge - how many can you get?</div>
             </div>
+
+            <div class="mode-card full-width" onclick="showDifficultWords()" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05)); border: 2px solid rgba(239, 68, 68, 0.3);">
+                <div class="mode-icon red">📉</div>
+                <div class="mode-title">Difficult Words</div>
+                <div class="mode-desc">Review words with the worst learning statistics</div>
+            </div>
         </div>
     </div>
 </div>
@@ -1522,9 +1477,6 @@
             <button class="answer-btn wrong" onclick="answerFlashcard(false)">
                 <span class="material-icons-round">close</span>
                 Again
-            </button>
-            <button class="mic-btn-flashcard" onclick="startFlashcardVoice()" id="flashcard-mic-btn" title="Speak the translation">
-                <span class="material-icons-round">mic</span>
             </button>
             <button class="answer-btn correct" onclick="answerFlashcard(true)">
                 <span class="material-icons-round">check</span>
@@ -1652,12 +1604,7 @@
             <div class="card-word" id="reverse-polish" style="font-size: 32px; font-weight: 700; color: var(--accent-secondary); margin-top: 16px;">słowo</div>
         </div>
 
-        <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="text" class="typing-input" id="reverse-input" placeholder="Type or speak English translation..." autocomplete="off" autocapitalize="off" spellcheck="false" style="flex: 1;">
-            <button class="mic-btn" onclick="startReverseVoice()" id="reverse-mic-btn" title="Speak your answer">
-                <span class="material-icons-round">mic</span>
-            </button>
-        </div>
+        <input type="text" class="typing-input" id="reverse-input" placeholder="Type English translation..." autocomplete="off" autocapitalize="off" spellcheck="false">
 
         <button class="typing-submit" onclick="checkReverse()" id="reverse-submit-btn">
             <span class="material-icons-round">psychology</span>
@@ -1692,10 +1639,46 @@
 
         <div id="xp-breakdown"></div>
 
-        <button class="complete-btn" onclick="goHome()">Back to Home</button>
-        <button class="complete-btn" onclick="restartSession()" style="background: var(--bg-elevated); margin-left: 12px;">
-            Try Again
+        <button class="complete-btn" onclick="continueSession()">
+            <span class="material-icons-round" style="font-size: 20px; margin-right: 8px;">play_arrow</span>
+            Continue Learning
         </button>
+        <button class="complete-btn" onclick="goHome()" style="background: var(--bg-elevated); margin-left: 12px;">
+            Back to Home
+        </button>
+    </div>
+</div>
+
+<!-- DIFFICULT WORDS VIEW -->
+<div id="view-difficult" class="view">
+    <div class="view-header">
+        <button class="icon-btn" onclick="goHome()">
+            <span class="material-icons-round">arrow_back</span>
+        </button>
+        <h2>📉 Difficult Words</h2>
+        <div></div>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;">
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                Words sorted by difficulty (most mistakes first). Practice these to improve your learning!
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="action-btn" onclick="practiceDifficultWords('flashcard')" style="flex: 1; min-width: 150px;">
+                    <span class="material-icons-round">style</span>
+                    Flashcards
+                </button>
+                <button class="action-btn" onclick="practiceDifficultWords('typing')" style="flex: 1; min-width: 150px; background: var(--bg-elevated);">
+                    <span class="material-icons-round">keyboard</span>
+                    Typing
+                </button>
+            </div>
+        </div>
+
+        <div id="difficult-words-list" style="display: grid; gap: 12px;">
+            <!-- Will be populated by JavaScript -->
+        </div>
     </div>
 </div>
 
@@ -1731,126 +1714,7 @@ const SESSION_SIZE = 20;
 // LLM API Configuration
 let GROQ_API_KEY = '';
 
-// Speech Recognition
-let recognitionEN = null;
-let recognitionPL = null;
-let speechSupported = false;
-let microphonePermissionGranted = false;
 
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-    try {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-        // English recognition for Reverse mode
-        recognitionEN = new SpeechRecognition();
-        recognitionEN.continuous = false;
-        recognitionEN.interimResults = false;
-        recognitionEN.maxAlternatives = 1;
-        recognitionEN.lang = 'en-US';
-
-        // Polish recognition for Flashcards
-        recognitionPL = new SpeechRecognition();
-        recognitionPL.continuous = false;
-        recognitionPL.interimResults = false;
-        recognitionPL.maxAlternatives = 1;
-        recognitionPL.lang = 'pl-PL';
-
-        speechSupported = true;
-    } catch (e) {
-        console.error('Speech recognition initialization failed:', e);
-        speechSupported = false;
-    }
-}
-
-// Show microphone permission modal
-function showMicPermissionModal() {
-    const modal = document.getElementById('mic-permission-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-}
-
-// Close microphone permission modal
-function closeMicPermissionModal() {
-    const modal = document.getElementById('mic-permission-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-    // Save that user dismissed the modal
-    localStorage.setItem('micPermissionAsked', 'true');
-}
-
-// Handle microphone permission request from modal
-async function handleMicPermissionRequest() {
-    const success = await requestMicrophonePermission();
-    if (success) {
-        closeMicPermissionModal();
-
-        // Show success message
-        const successDiv = document.createElement('div');
-        successDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 24px 32px; border-radius: 16px; z-index: 10001; font-size: 16px; text-align: center; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);';
-        successDiv.innerHTML = '✅ Gotowe!<br><br>Kliknij 🎤 w trybach<br><strong>Flashcards</strong> lub <strong>Reverse</strong>';
-        document.body.appendChild(successDiv);
-
-        setTimeout(() => {
-            successDiv.remove();
-        }, 3000);
-    }
-}
-
-// Request microphone permission
-async function requestMicrophonePermission() {
-    if (microphonePermissionGranted) {
-        return true;
-    }
-
-    try {
-        // Try to get microphone access using getUserMedia
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-        // Stop the stream immediately - we just needed permission
-        stream.getTracks().forEach(track => track.stop());
-
-        microphonePermissionGranted = true;
-        console.log('✅ Microphone permission granted');
-        localStorage.setItem('micPermissionGranted', 'true');
-        return true;
-    } catch (error) {
-        console.error('❌ Microphone permission denied:', error);
-
-        // Show helpful message based on error type
-        let errorMsg = '';
-
-        if (error.name === 'NotAllowedError') {
-            errorMsg = '🔒 Odmówiono dostępu\n\n';
-            errorMsg += 'Kliknąłeś "Zablokuj" lub wcześniej zablokowałeś dostęp.\n\n';
-            errorMsg += '📱 Jak naprawić:\n';
-            errorMsg += '1. Kliknij ikonę 🔒 lub ⓘ w pasku adresu\n';
-            errorMsg += '2. Znajdź "Mikrofon"\n';
-            errorMsg += '3. Zmień na "Zezwalaj"\n';
-            errorMsg += '4. Odśwież stronę (F5)';
-        } else if (error.name === 'NotFoundError') {
-            errorMsg = '🎤 Nie znaleziono mikrofonu\n\n';
-            errorMsg += 'Sprawdź czy:\n';
-            errorMsg += '• Twoje urządzenie ma mikrofon\n';
-            errorMsg += '• Mikrofon jest włączony w systemie\n';
-            errorMsg += '• Żadna inna aplikacja nie używa mikrofonu';
-        } else if (error.name === 'NotReadableError') {
-            errorMsg = '⚠️ Mikrofon zajęty\n\n';
-            errorMsg += 'Inna aplikacja używa mikrofonu.\n\n';
-            errorMsg += 'Zamknij inne aplikacje (np. Messenger, WhatsApp, nagrywanie) i spróbuj ponownie.';
-        } else {
-            errorMsg = '❌ Błąd dostępu do mikrofonu\n\n';
-            errorMsg += 'Sprawdź czy:\n';
-            errorMsg += '• Używasz Chrome (nie Firefox)\n';
-            errorMsg += '• Masz połączenie HTTPS\n';
-            errorMsg += '• Mikrofon działa w innych aplikacjach';
-        }
-
-        alert(errorMsg);
-        return false;
-    }
-}
 
 // Time tracking
 let sessionStartTime = null;
@@ -1897,58 +1761,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateGamificationUI();
     startTimeTracking();
     checkAPIKeyStatus();
-    checkSpeechSupport();
-
-    // Check if we should show microphone permission modal
-    const micPermissionAsked = localStorage.getItem('micPermissionAsked');
-    const micPermissionGranted = localStorage.getItem('micPermissionGranted');
-
-    if (speechSupported && !micPermissionAsked && !micPermissionGranted) {
-        // Show modal after 2 seconds to let user see the app first
-        setTimeout(() => {
-            showMicPermissionModal();
-        }, 2000);
-    } else if (micPermissionGranted === 'true') {
-        // User already granted permission before
-        microphonePermissionGranted = true;
-    }
 });
 
-function checkSpeechSupport() {
-    console.log('=== SPEECH RECOGNITION CHECK ===');
-    console.log('Browser:', navigator.userAgent);
-    console.log('HTTPS:', window.location.protocol === 'https:');
-    console.log('SpeechRecognition API:', 'SpeechRecognition' in window);
-    console.log('webkitSpeechRecognition API:', 'webkitSpeechRecognition' in window);
-    console.log('speechSupported:', speechSupported);
-    console.log('recognitionEN:', recognitionEN);
-    console.log('recognitionPL:', recognitionPL);
 
-    if (!speechSupported) {
-        console.warn('❌ Speech recognition NOT supported on this device/browser');
-        console.warn('Hiding microphone buttons...');
-
-        // Hide mic buttons if speech is not supported
-        const style = document.createElement('style');
-        style.textContent = `
-            .mic-btn, .mic-btn-flashcard {
-                display: none !important;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Show info to user
-        if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
-            console.warn('⚠️ Not using HTTPS - Speech API requires HTTPS!');
-        }
-    } else {
-        console.log('✅ Speech recognition supported:', {
-            EN: recognitionEN ? 'OK' : 'FAIL',
-            PL: recognitionPL ? 'OK' : 'FAIL'
-        });
-    }
-    console.log('================================');
-}
 
 // Track time when page is visible/hidden
 document.addEventListener('visibilitychange', () => {
@@ -2262,6 +2077,127 @@ function goHome() {
     saveProgress();
 }
 
+// ===== DIFFICULT WORDS =====
+function showDifficultWords() {
+    // Calculate difficulty score for each word
+    const wordsWithStats = allWords.map(word => {
+        const wrongCount = word.wrongCount || 0;
+        const correctCount = word.correctCount || 0;
+        const totalAttempts = wrongCount + correctCount;
+
+        // Difficulty score: higher = more difficult
+        // Factors: wrong count, wrong ratio, level (lower level = harder)
+        let difficultyScore = 0;
+
+        if (totalAttempts > 0) {
+            const wrongRatio = wrongCount / totalAttempts;
+            difficultyScore = (wrongCount * 10) + (wrongRatio * 100) + ((3 - word.level) * 5);
+        } else if (word.level === SR_LEVELS.NEW) {
+            // New words get medium priority
+            difficultyScore = 15;
+        }
+
+        return {
+            ...word,
+            wrongCount,
+            correctCount,
+            totalAttempts,
+            difficultyScore
+        };
+    });
+
+    // Sort by difficulty (highest first)
+    const difficultWords = wordsWithStats
+        .filter(w => w.totalAttempts > 0 || w.level === SR_LEVELS.NEW)
+        .sort((a, b) => b.difficultyScore - a.difficultyScore)
+        .slice(0, 50); // Top 50 most difficult
+
+    // Render the list
+    const listEl = document.getElementById('difficult-words-list');
+
+    if (difficultWords.length === 0) {
+        listEl.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+                <div style="font-size: 64px; margin-bottom: 16px;">🎉</div>
+                <h3 style="font-size: 20px; margin-bottom: 8px;">No difficult words yet!</h3>
+                <p>Start learning to see your progress here.</p>
+            </div>
+        `;
+    } else {
+        listEl.innerHTML = difficultWords.map((word, index) => {
+            const accuracy = word.totalAttempts > 0
+                ? Math.round((word.correctCount / word.totalAttempts) * 100)
+                : 0;
+
+            const levelName = ['New', 'Learning', 'Review', 'Mastered'][word.level];
+            const levelColor = ['#6366f1', '#f59e0b', '#10b981', '#8b5cf6'][word.level];
+
+            return `
+                <div style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 16px; border: 1px solid var(--border-subtle);">
+                    <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--text-muted); min-width: 35px;">#${index + 1}</div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">${word.w}</div>
+                            <div style="font-size: 15px; color: var(--text-secondary);">${word.t}</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; color: var(--text-muted); padding-left: 51px;">
+                        <span style="background: ${levelColor}22; color: ${levelColor}; padding: 4px 10px; border-radius: 6px; font-weight: 600; white-space: nowrap;">${levelName}</span>
+                        ${word.totalAttempts > 0 ? `
+                            <span style="background: var(--bg-elevated); padding: 4px 10px; border-radius: 6px; white-space: nowrap;">✅ ${word.correctCount}</span>
+                            <span style="background: var(--bg-elevated); padding: 4px 10px; border-radius: 6px; white-space: nowrap;">❌ ${word.wrongCount}</span>
+                            <span style="background: ${accuracy >= 70 ? '#10b98122' : accuracy >= 50 ? '#f59e0b22' : '#ef444422'}; color: ${accuracy >= 70 ? '#10b981' : accuracy >= 50 ? '#f59e0b' : '#ef4444'}; padding: 4px 10px; border-radius: 6px; font-weight: 600; white-space: nowrap;">📊 ${accuracy}%</span>
+                        ` : '<span style="background: var(--bg-elevated); padding: 4px 10px; border-radius: 6px;">Not practiced yet</span>'}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    showView('view-difficult');
+}
+
+function practiceDifficultWords(mode) {
+    // Get top 20 most difficult words
+    const wordsWithStats = allWords.map(word => {
+        const wrongCount = word.wrongCount || 0;
+        const correctCount = word.correctCount || 0;
+        const totalAttempts = wrongCount + correctCount;
+
+        let difficultyScore = 0;
+        if (totalAttempts > 0) {
+            const wrongRatio = wrongCount / totalAttempts;
+            difficultyScore = (wrongCount * 10) + (wrongRatio * 100) + ((3 - word.level) * 5);
+        } else if (word.level === SR_LEVELS.NEW) {
+            difficultyScore = 15;
+        }
+
+        return { ...word, difficultyScore };
+    });
+
+    currentSession = wordsWithStats
+        .filter(w => w.difficultyScore > 0)
+        .sort((a, b) => b.difficultyScore - a.difficultyScore)
+        .slice(0, 20);
+
+    if (currentSession.length === 0) {
+        alert('No difficult words to practice!');
+        return;
+    }
+
+    currentMode = mode;
+    currentIndex = 0;
+    sessionStats = { correct: 0, wrong: 0 };
+
+    switch(mode) {
+        case 'flashcard': showFlashcard(); break;
+        case 'typing': showTyping(); break;
+        default: showFlashcard();
+    }
+
+    showView(`view-${mode}`);
+}
+
 // ===== MODE SELECTION =====
 function startMode(mode) {
     currentMode = mode;
@@ -2560,227 +2496,6 @@ function checkListening() {
     }, 2500);
 }
 
-// ===== SPEECH RECOGNITION =====
-async function startReverseVoice() {
-    if (!recognitionEN || !speechSupported) {
-        alert('Rozpoznawanie mowy nie jest dostępne.\n\nSprawdź:\n1. Czy używasz Chrome/Edge\n2. Czy masz połączenie z internetem\n3. Czy zezwoliłeś na mikrofon');
-        return;
-    }
-
-    // Request microphone permission first
-    if (!microphonePermissionGranted) {
-        const granted = await requestMicrophonePermission();
-        if (!granted) {
-            return;
-        }
-    }
-
-    const micBtn = document.getElementById('reverse-mic-btn');
-    const inputEl = document.getElementById('reverse-input');
-
-    micBtn.classList.add('listening');
-    micBtn.innerHTML = '<span class="material-icons-round">mic</span>';
-
-    recognitionEN.onstart = () => {
-        console.log('Speech recognition started (EN)');
-    };
-
-    recognitionEN.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        console.log('Recognized (EN):', transcript);
-        inputEl.value = transcript;
-        micBtn.classList.remove('listening');
-
-        // Automatically check the answer
-        setTimeout(() => {
-            checkReverse();
-        }, 300);
-    };
-
-    recognitionEN.onerror = (event) => {
-        console.error('Speech recognition error:', event.error, event);
-        micBtn.classList.remove('listening');
-
-        let errorMsg = 'Nie udało się rozpoznać mowy.';
-        let details = '';
-
-        switch(event.error) {
-            case 'no-speech':
-                errorMsg = '🎤 Nie wykryto mowy';
-                details = 'Spróbuj ponownie i mów głośniej.';
-                break;
-            case 'audio-capture':
-                errorMsg = '🎤 Mikrofon nie działa';
-                details = 'Sprawdź czy mikrofon jest podłączony i włączony.';
-                break;
-            case 'not-allowed':
-                errorMsg = '🔒 Brak dostępu do mikrofonu';
-                details = 'Kliknij ikonę kłódki w pasku adresu i zezwól na mikrofon.';
-                break;
-            case 'network':
-                errorMsg = '📡 Brak internetu';
-                details = 'Rozpoznawanie mowy wymaga połączenia z internetem.';
-                break;
-            case 'aborted':
-                errorMsg = '⏹️ Przerwano';
-                details = 'Rozpoznawanie zostało przerwane.';
-                break;
-            case 'service-not-allowed':
-                errorMsg = '🚫 Usługa niedostępna';
-                details = 'Rozpoznawanie mowy może nie działać na tym urządzeniu.\n\nSpróbuj:\n• Użyć Chrome zamiast innej przeglądarki\n• Włączyć HTTPS (nie HTTP)\n• Sprawdzić ustawienia mikrofonu w systemie';
-                break;
-            default:
-                errorMsg = '❌ Błąd: ' + event.error;
-                details = 'Rozpoznawanie mowy może nie być dostępne.\n\nWymagania:\n• Chrome/Edge (najlepiej Chrome)\n• Połączenie z internetem\n• Dostęp do mikrofonu\n• HTTPS (nie HTTP)';
-        }
-
-        alert(errorMsg + '\n\n' + details);
-    };
-
-    recognitionEN.onend = () => {
-        micBtn.classList.remove('listening');
-        console.log('Speech recognition ended (EN)');
-    };
-
-    try {
-        recognitionEN.start();
-    } catch (e) {
-        console.error('Failed to start recognition:', e);
-        micBtn.classList.remove('listening');
-        alert('Nie można uruchomić rozpoznawania mowy. Spróbuj odświeżyć stronę.');
-    }
-}
-
-async function startFlashcardVoice() {
-    if (!recognitionPL || !speechSupported) {
-        alert('Rozpoznawanie mowy nie jest dostępne.\n\nSprawdź:\n1. Czy używasz Chrome/Edge\n2. Czy masz połączenie z internetem\n3. Czy zezwoliłeś na mikrofon');
-        return;
-    }
-
-    // Request microphone permission first
-    if (!microphonePermissionGranted) {
-        const granted = await requestMicrophonePermission();
-        if (!granted) {
-            return;
-        }
-    }
-
-    const word = currentSession[currentIndex];
-    const micBtn = document.getElementById('flashcard-mic-btn');
-
-    micBtn.classList.add('listening');
-
-    recognitionPL.onstart = () => {
-        console.log('Speech recognition started (PL)');
-    };
-
-    recognitionPL.onresult = async (event) => {
-        const transcript = event.results[0][0].transcript.trim();
-        console.log('Recognized (PL):', transcript);
-        micBtn.classList.remove('listening');
-
-        // Show what was heard
-        const feedbackDiv = document.createElement('div');
-        feedbackDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9); color: white; padding: 20px 40px; border-radius: 12px; z-index: 10000; font-size: 18px; text-align: center;';
-        feedbackDiv.textContent = `Usłyszałem: "${transcript}"`;
-        document.body.appendChild(feedbackDiv);
-
-        // Verify with AI if API key is available
-        if (GROQ_API_KEY) {
-            feedbackDiv.textContent = `Usłyszałem: "${transcript}"\n🤖 Sprawdzam...`;
-            try {
-                const isCorrect = await verifyWithAI(word.t, word.w, transcript);
-
-                setTimeout(() => {
-                    feedbackDiv.remove();
-                    if (isCorrect) {
-                        answerFlashcard(true);
-                    } else {
-                        // Show correct answer and mark as wrong
-                        const wrongDiv = document.createElement('div');
-                        wrongDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(239, 68, 68, 0.95); color: white; padding: 20px 40px; border-radius: 12px; z-index: 10000; font-size: 16px; text-align: center;';
-                        wrongDiv.innerHTML = `Nie do końca...<br>Powiedziałeś: "${transcript}"<br>Poprawnie: ${word.t}`;
-                        document.body.appendChild(wrongDiv);
-                        setTimeout(() => {
-                            wrongDiv.remove();
-                            answerFlashcard(false);
-                        }, 2000);
-                    }
-                }, 800);
-            } catch (error) {
-                console.error('AI verification error:', error);
-                feedbackDiv.remove();
-                // Fallback to simple comparison
-                const isCorrect = transcript.toLowerCase() === word.t.toLowerCase() ||
-                                 word.t.toLowerCase().includes(transcript.toLowerCase());
-                setTimeout(() => answerFlashcard(isCorrect), 500);
-            }
-        } else {
-            // Simple comparison without AI
-            const isCorrect = transcript.toLowerCase() === word.t.toLowerCase() ||
-                             word.t.toLowerCase().includes(transcript.toLowerCase());
-
-            setTimeout(() => {
-                feedbackDiv.remove();
-                answerFlashcard(isCorrect);
-            }, 1000);
-        }
-    };
-
-    recognitionPL.onerror = (event) => {
-        console.error('Speech recognition error:', event.error, event);
-        micBtn.classList.remove('listening');
-
-        let errorMsg = 'Nie udało się rozpoznać mowy.';
-        let details = '';
-
-        switch(event.error) {
-            case 'no-speech':
-                errorMsg = '🎤 Nie wykryto mowy';
-                details = 'Spróbuj ponownie i mów głośniej.';
-                break;
-            case 'audio-capture':
-                errorMsg = '🎤 Mikrofon nie działa';
-                details = 'Sprawdź czy mikrofon jest podłączony i włączony.';
-                break;
-            case 'not-allowed':
-                errorMsg = '🔒 Brak dostępu do mikrofonu';
-                details = 'Kliknij ikonę kłódki w pasku adresu i zezwól na mikrofon.';
-                break;
-            case 'network':
-                errorMsg = '📡 Brak internetu';
-                details = 'Rozpoznawanie mowy wymaga połączenia z internetem.';
-                break;
-            case 'aborted':
-                errorMsg = '⏹️ Przerwano';
-                details = 'Rozpoznawanie zostało przerwane.';
-                break;
-            case 'service-not-allowed':
-                errorMsg = '🚫 Usługa niedostępna';
-                details = 'Rozpoznawanie mowy może nie działać na tym urządzeniu.\n\nSpróbuj:\n• Użyć Chrome zamiast innej przeglądarki\n• Włączyć HTTPS (nie HTTP)\n• Sprawdzić ustawienia mikrofonu w systemie';
-                break;
-            default:
-                errorMsg = '❌ Błąd: ' + event.error;
-                details = 'Rozpoznawanie mowy może nie być dostępne.\n\nWymagania:\n• Chrome/Edge (najlepiej Chrome)\n• Połączenie z internetem\n• Dostęp do mikrofonu\n• HTTPS (nie HTTP)';
-        }
-
-        alert(errorMsg + '\n\n' + details);
-    };
-
-    recognitionPL.onend = () => {
-        micBtn.classList.remove('listening');
-        console.log('Speech recognition ended (PL)');
-    };
-
-    try {
-        recognitionPL.start();
-    } catch (e) {
-        console.error('Failed to start recognition:', e);
-        micBtn.classList.remove('listening');
-        alert('Nie można uruchomić rozpoznawania mowy. Spróbuj odświeżyć stronę.');
-    }
-}
-
 // ===== REVERSE MODE (Polish → English with AI) =====
 function showReverse() {
     if (currentIndex >= currentSession.length) {
@@ -2905,8 +2620,13 @@ function updateWordProgress(word, correct) {
     word.lastReview = Date.now();
     word.reviewCount++;
 
+    // Track correct/wrong counts for difficulty analysis
+    if (!word.correctCount) word.correctCount = 0;
+    if (!word.wrongCount) word.wrongCount = 0;
+
     if (correct) {
         word.correctStreak++;
+        word.correctCount++;
 
         // Level up based on correct streak
         if (word.level === SR_LEVELS.NEW && word.correctStreak >= 1) {
@@ -2918,6 +2638,7 @@ function updateWordProgress(word, correct) {
         }
     } else {
         word.correctStreak = 0;
+        word.wrongCount++;
 
         // Level down on wrong answer
         if (word.level === SR_LEVELS.MASTERED) {
@@ -3028,6 +2749,11 @@ function showComplete() {
     }
 }
 
+function continueSession() {
+    // Start a new session with the same mode
+    startSession(currentMode);
+}
+
 function restartSession() {
     currentIndex = 0;
     sessionStats = { correct: 0, wrong: 0 };
@@ -3037,6 +2763,7 @@ function restartSession() {
         case 'quiz': showQuiz(); break;
         case 'typing': showTyping(); break;
         case 'listening': showListening(); break;
+        case 'reverse': showReverse(); break;
     }
 
     showView(`view-${currentMode}`);
@@ -3354,8 +3081,15 @@ function importJSON(event) {
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            processWordsData(data);
-            alert(`✓ Successfully imported ${allWords.length} words!`);
+
+            // Check if this is a progress export file
+            if (data.version && data.words && data.gamification) {
+                importProgress(data);
+            } else {
+                // Regular word list import
+                processWordsData(data);
+                alert(`✓ Successfully imported ${allWords.length} words!`);
+            }
         } catch (error) {
             console.error('Error parsing JSON:', error);
             alert('Error: Invalid JSON file format.');
@@ -3364,24 +3098,54 @@ function importJSON(event) {
     reader.readAsText(file);
 }
 
-function exportForMobile() {
-    if (allWords.length === 0) {
-        alert('No words to export. Please import a JSON file first.');
+function importProgress(data) {
+    if (!confirm('⚠️ Import Progress?\n\nThis will replace your current progress:\n• Words and learning progress\n• Time statistics\n• Level, XP, achievements\n\nContinue?')) {
         return;
     }
 
-    const exportData = {
-        "lingua_vocab_common_words_1000": {
-            "title": "1000 Most Common English Words",
-            "createdAt": Date.now(),
-            "words": allWords.map(w => ({
-                w: w.w,
-                t: w.t,
-                sl: w.sl,
-                tl: w.tl,
-                known: w.level === SR_LEVELS.MASTERED
-            }))
+    try {
+        // Import words
+        allWords = data.words || [];
+        localStorage.setItem('wordProgress', JSON.stringify(allWords));
+
+        // Import time stats
+        if (data.timeStats) {
+            localStorage.setItem('timeStats', JSON.stringify(data.timeStats));
         }
+
+        // Import gamification stats
+        if (data.gamification) {
+            playerStats = data.gamification;
+            localStorage.setItem('gamificationStats', JSON.stringify(playerStats));
+        }
+
+        // Import API key (optional)
+        if (data.apiKey) {
+            GROQ_API_KEY = data.apiKey;
+            localStorage.setItem('groqApiKey', data.apiKey);
+        }
+
+        // Reload UI
+        updateStats();
+        updateGamificationUI();
+        showHome();
+
+        alert(`✅ Progress imported successfully!\n\n📚 Words: ${allWords.length}\n⭐ Level: ${playerStats.level}\n🏆 XP: ${playerStats.xp}\n🔥 Streak: ${playerStats.streak} days`);
+    } catch (error) {
+        console.error('Error importing progress:', error);
+        alert('❌ Error importing progress. File may be corrupted.');
+    }
+}
+
+function exportProgress() {
+    // Export all progress data (words + stats + gamification)
+    const exportData = {
+        version: "1.0",
+        exportedAt: new Date().toISOString(),
+        words: allWords,
+        timeStats: JSON.parse(localStorage.getItem('timeStats') || '{}'),
+        gamification: playerStats,
+        apiKey: GROQ_API_KEY || null
     };
 
     const jsonStr = JSON.stringify(exportData, null, 2);
@@ -3389,11 +3153,12 @@ function exportForMobile() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'common-words-export.json';
+    const timestamp = new Date().toISOString().split('T')[0];
+    a.download = `wordmaster-progress-${timestamp}.json`;
     a.click();
     URL.revokeObjectURL(url);
 
-    alert('✓ Exported! You can import this file in mobile.html');
+    alert('✅ Progress exported!\n\nFile: wordmaster-progress-' + timestamp + '.json\n\nYou can import this file to restore your progress.');
 }
 
 // Keyboard shortcuts
