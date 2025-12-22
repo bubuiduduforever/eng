@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WordMaster</title>
+    <title>WordMaster - 1000 English Words</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <style>
@@ -2342,10 +2342,10 @@ function answerFlashcard(correct) {
 
     currentIndex++;
 
-    // Show next card after brief feedback
+    // Show next card after feedback (1200ms total)
     setTimeout(() => {
         showFlashcard();
-    }, 400);
+    }, 1200);
 }
 
 // ===== QUIZ MODE =====
@@ -2636,38 +2636,29 @@ function showQuickFeedback(correct, english, polish) {
         transform: translate(-50%, -50%);
         background: ${correct ? 'rgba(16, 185, 129, 0.95)' : 'rgba(239, 68, 68, 0.95)'};
         color: white;
-        padding: 20px 40px;
-        border-radius: 12px;
+        padding: 24px 48px;
+        border-radius: 16px;
         font-size: 18px;
         font-weight: 600;
         z-index: 10000;
         box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        animation: feedbackPop 0.4s ease-out;
+        animation: feedbackPop 0.3s ease-out;
         text-align: center;
+        min-width: 200px;
     `;
 
-    if (correct) {
-        feedback.innerHTML = `
-            <div style="font-size: 32px; margin-bottom: 8px;">✓</div>
-            <div style="font-size: 20px; margin-bottom: 4px;">${english}</div>
-            <div style="font-size: 16px; opacity: 0.9;">${polish}</div>
-        `;
-    } else {
-        feedback.innerHTML = `
-            <div style="font-size: 32px; margin-bottom: 8px;">✗</div>
-            <div style="font-size: 16px; opacity: 0.9; margin-bottom: 4px;">Correct answer:</div>
-            <div style="font-size: 20px; margin-bottom: 4px;">${english}</div>
-            <div style="font-size: 16px; opacity: 0.9;">${polish}</div>
-        `;
-    }
+    // Show only translation (polish) - no need to repeat english word
+    feedback.innerHTML = `
+        <div style="font-size: 32px; font-weight: 700; line-height: 1.3;">${polish}</div>
+    `;
 
     document.body.appendChild(feedback);
 
-    // Auto remove after 350ms
+    // Auto remove after 1000ms (longer to read)
     setTimeout(() => {
-        feedback.style.animation = 'feedbackFade 0.15s ease-out';
-        setTimeout(() => feedback.remove(), 150);
-    }, 350);
+        feedback.style.animation = 'feedbackFade 0.2s ease-out';
+        setTimeout(() => feedback.remove(), 200);
+    }, 1000);
 }
 
 // ===== PROGRESS TRACKING =====
