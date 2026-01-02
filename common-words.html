@@ -1268,24 +1268,13 @@
             <span class="logo-text">WordMaster</span>
         </div>
 
-        <div class="player-info">
-            <div class="player-level-badge" onclick="showAchievements()">
-                <div class="level-number" id="player-level">1</div>
-                <div class="level-label">Level</div>
-            </div>
-            <div class="xp-container">
-                <div class="xp-text" id="player-xp">0 / 100 XP</div>
-                <div class="xp-bar-bg">
-                    <div class="xp-bar-fill" id="xp-bar"></div>
-                </div>
-            </div>
-            <div class="streak-badge" title="Daily Streak">
-                <span class="material-icons-round">local_fire_department</span>
-                <span id="player-streak">0</span>
-            </div>
-        </div>
-
-        <div class="header-actions">
+        <div class="header-actions" style="margin-left: auto;">
+            <button class="icon-btn" onclick="showWordSetsModal()" title="Manage Word Sets">
+                <span class="material-icons-round">folder</span>
+            </button>
+            <button class="icon-btn" onclick="showAddWordModal()" title="Add New Word">
+                <span class="material-icons-round">add</span>
+            </button>
             <button class="icon-btn" onclick="document.getElementById('file-input').click()" title="Import JSON">
                 <span class="material-icons-round">file_upload</span>
             </button>
@@ -1299,48 +1288,110 @@
     </header>
 
     <div class="main-content">
-        <!-- Empty State -->
-        <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-xl); margin-bottom: 24px; border: 2px dashed var(--border-subtle);">
-            <div style="font-size: 64px; margin-bottom: 20px;">📁</div>
-            <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">No Words Loaded</h3>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Import a JSON file with words to get started</p>
-            <button class="action-btn" onclick="document.getElementById('file-input').click()" style="display: inline-flex;">
-                <span class="material-icons-round">file_upload</span>
-                Import JSON File
-            </button>
+        <!-- Word Sets Section -->
+        <div style="margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 32px;">📚</span>
+                    Your Word Sets
+                </h2>
+                <button onclick="showCreateSetOptions()" style="padding: 12px 24px; background: var(--accent-gradient); border: none; border-radius: var(--radius-lg); color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow-glow);">
+                    <span class="material-icons-round">add_circle</span>
+                    New Set
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px; background: var(--bg-card); border-radius: var(--radius-xl); margin-bottom: 24px; border: 2px dashed var(--border-subtle);">
+                <div style="font-size: 64px; margin-bottom: 20px;">📚</div>
+                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">No Word Sets Yet</h3>
+                <p style="color: var(--text-muted); margin-bottom: 24px;">Create your first word set to start learning!</p>
+                <button onclick="showCreateSetOptions()" style="padding: 14px 32px; background: var(--accent-gradient); border: none; border-radius: var(--radius-lg); color: white; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                    <span class="material-icons-round">add_circle</span>
+                    Create Word Set
+                </button>
+            </div>
+
+            <!-- Word Sets Grid -->
+            <div id="home-word-sets-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                <!-- Will be populated by JavaScript -->
+            </div>
         </div>
 
+
+    </div>
+</div>
+
+<!-- SET PRACTICE VIEW -->
+<div id="view-set-practice" class="view">
+    <header class="header">
+        <div class="logo">
+            <button class="icon-btn" onclick="goHome()" style="margin-right: 8px;">
+                <span class="material-icons-round">arrow_back</span>
+            </button>
+            <div class="logo-icon">📚</div>
+            <span class="logo-text" id="practice-set-name">Word Set</span>
+        </div>
+
+        <div class="player-info">
+            <div class="player-level-badge" onclick="showAchievements()">
+                <div class="level-number" id="player-level-practice">1</div>
+                <div class="level-label">Level</div>
+            </div>
+            <div class="xp-container">
+                <div class="xp-text" id="player-xp-practice">0 / 100 XP</div>
+                <div class="xp-bar-bg">
+                    <div class="xp-bar-fill" id="xp-bar-practice"></div>
+                </div>
+            </div>
+            <div class="streak-badge" title="Daily Streak">
+                <span class="material-icons-round">local_fire_department</span>
+                <span id="player-streak-practice">0</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn" onclick="showAddWordModal()" title="Add New Word">
+                <span class="material-icons-round">add</span>
+            </button>
+            <button class="icon-btn" onclick="exportProgress()" title="Export Progress">
+                <span class="material-icons-round">file_download</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-content">
         <!-- Stats Hero -->
-        <div class="stats-hero" id="stats-hero">
+        <div class="stats-hero" id="stats-hero-practice">
             <h2>Your Progress</h2>
             <div class="progress-ring-container">
                 <div class="progress-ring">
                     <svg width="140" height="140">
                         <circle class="progress-ring-bg" cx="70" cy="70" r="60"/>
-                        <circle class="progress-ring-fill" id="progress-circle" cx="70" cy="70" r="60"
+                        <circle class="progress-ring-fill" id="progress-circle-practice" cx="70" cy="70" r="60"
                             stroke-dasharray="377" stroke-dashoffset="377"/>
                     </svg>
                     <div class="progress-ring-text">
-                        <div class="progress-percent" id="progress-percent">0%</div>
+                        <div class="progress-percent" id="progress-percent-practice">0%</div>
                         <div class="progress-label">Mastered</div>
                     </div>
                 </div>
             </div>
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-value" id="stat-total">0</div>
+                    <div class="stat-value" id="stat-total-practice">0</div>
                     <div class="stat-label">Total Words</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value success" id="stat-known">0</div>
+                    <div class="stat-value success" id="stat-known-practice">0</div>
                     <div class="stat-label">Mastered</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value pending" id="stat-learning">0</div>
+                    <div class="stat-value pending" id="stat-learning-practice">0</div>
                     <div class="stat-label">Learning</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value" id="time-today" style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0s</div>
+                    <div class="stat-value" id="time-today-practice" style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0s</div>
                     <div class="stat-label">Time Today</div>
                 </div>
             </div>
@@ -1354,32 +1405,21 @@
             </div>
             <div class="sr-levels">
                 <div class="sr-level">
-                    <div class="sr-level-count" id="sr-new">0</div>
+                    <div class="sr-level-count" id="sr-new-practice">0</div>
                     <div class="sr-level-name">New</div>
                 </div>
                 <div class="sr-level">
-                    <div class="sr-level-count" id="sr-learning">0</div>
+                    <div class="sr-level-count" id="sr-learning-practice">0</div>
                     <div class="sr-level-name">Learning</div>
                 </div>
                 <div class="sr-level">
-                    <div class="sr-level-count" id="sr-review">0</div>
+                    <div class="sr-level-count" id="sr-review-practice">0</div>
                     <div class="sr-level-name">Review</div>
                 </div>
                 <div class="sr-level">
-                    <div class="sr-level-count" id="sr-mastered">0</div>
+                    <div class="sr-level-count" id="sr-mastered-practice">0</div>
                     <div class="sr-level-name">Mastered</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Weekly Time Stats -->
-        <div class="sr-info" id="weekly-stats-container">
-            <div class="sr-title">
-                <span class="material-icons-round">schedule</span>
-                Weekly Activity
-            </div>
-            <div class="week-chart" id="week-chart">
-                <!-- Will be populated by JavaScript -->
             </div>
         </div>
 
@@ -1420,12 +1460,6 @@
                 <div class="mode-desc">Polish → English (AI verified)</div>
             </div>
 
-            <div class="mode-card full-width" onclick="startMode('speed')">
-                <div class="mode-icon pink">⚡</div>
-                <div class="mode-title">Speed Round</div>
-                <div class="mode-desc">Quick fire 30-second challenge - how many can you get?</div>
-            </div>
-
             <div class="mode-card full-width" onclick="showDifficultWords()" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05)); border: 2px solid rgba(239, 68, 68, 0.3);">
                 <div class="mode-icon red">📉</div>
                 <div class="mode-title">Difficult Words</div>
@@ -1438,7 +1472,7 @@
 <!-- FLASHCARD VIEW -->
 <div id="view-flashcard" class="view">
     <div class="study-header">
-        <div class="back-btn" onclick="goHome()">
+        <div class="back-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
             Back
         </div>
@@ -1494,7 +1528,7 @@
 <!-- QUIZ VIEW -->
 <div id="view-quiz" class="view">
     <div class="study-header">
-        <div class="back-btn" onclick="goHome()">
+        <div class="back-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
             Back
         </div>
@@ -1524,7 +1558,7 @@
 <!-- TYPING VIEW -->
 <div id="view-typing" class="view">
     <div class="study-header">
-        <div class="back-btn" onclick="goHome()">
+        <div class="back-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
             Back
         </div>
@@ -1555,7 +1589,7 @@
 <!-- LISTENING VIEW -->
 <div id="view-listening" class="view">
     <div class="study-header">
-        <div class="back-btn" onclick="goHome()">
+        <div class="back-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
             Back
         </div>
@@ -1586,7 +1620,7 @@
 <!-- REVERSE VIEW -->
 <div id="view-reverse" class="view">
     <div class="study-header">
-        <div class="back-btn" onclick="goHome()">
+        <div class="back-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
             Back
         </div>
@@ -1643,8 +1677,8 @@
             <span class="material-icons-round" style="font-size: 20px; margin-right: 8px;">play_arrow</span>
             Continue Learning
         </button>
-        <button class="complete-btn" onclick="goHome()" style="background: var(--bg-elevated); margin-left: 12px;">
-            Back to Home
+        <button class="complete-btn" onclick="goBackToPractice()" style="background: var(--bg-elevated); margin-left: 12px;">
+            Back to Practice
         </button>
     </div>
 </div>
@@ -1652,7 +1686,7 @@
 <!-- DIFFICULT WORDS VIEW -->
 <div id="view-difficult" class="view">
     <div class="view-header">
-        <button class="icon-btn" onclick="goHome()">
+        <button class="icon-btn" onclick="goBackToPractice()">
             <span class="material-icons-round">arrow_back</span>
         </button>
         <h2>📉 Difficult Words</h2>
@@ -1697,6 +1731,83 @@
     </div>
 </div>
 
+<!-- WORD SETS MANAGEMENT MODAL -->
+<div id="word-sets-modal" class="modal" onclick="if(event.target === this) hideWordSetsModal()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📚 Manage Word Sets</h2>
+            <button class="icon-btn" onclick="hideWordSetsModal()">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div style="padding: 24px;">
+            <!-- Create New Set -->
+            <div style="background: var(--bg-elevated); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                    <span class="material-icons-round" style="color: var(--accent-primary);">add_circle</span>
+                    Create New Set
+                </h3>
+                <input type="text" id="new-set-name" placeholder="Enter set name (e.g., 'Business English')"
+                    style="width: 100%; padding: 12px; background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); margin-bottom: 12px; outline: none;">
+                <button onclick="createNewWordSet()" style="width: 100%; padding: 12px; background: var(--accent-gradient); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer;">
+                    <span class="material-icons-round" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">add</span>
+                    Create Empty Set
+                </button>
+            </div>
+
+            <!-- Load Common Words -->
+            <div style="background: var(--bg-elevated); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                    <span class="material-icons-round" style="color: var(--accent-secondary);">download</span>
+                    Load Default Words
+                </h3>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">Load the default 1000 common English words</p>
+                <button onclick="loadCommonWordsAsSet()" style="width: 100%; padding: 12px; background: var(--bg-card); border: 2px solid var(--border-accent); border-radius: var(--radius-md); color: var(--text-primary); font-weight: 600; cursor: pointer;">
+                    <span class="material-icons-round" style="font-size: 18px; vertical-align: middle; margin-right: 6px;">file_download</span>
+                    Load Common Words
+                </button>
+            </div>
+
+            <!-- Existing Sets -->
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span class="material-icons-round" style="color: var(--accent-tertiary);">folder</span>
+                Your Word Sets
+            </h3>
+            <div id="word-sets-list" style="display: grid; gap: 12px;">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD WORD MODAL -->
+<div id="add-word-modal" class="modal" onclick="if(event.target === this) hideAddWordModal()">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>➕ Add New Word</h2>
+            <button class="icon-btn" onclick="hideAddWordModal()">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+        <div style="padding: 24px;">
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">English Word</label>
+                <input type="text" id="add-word-english" placeholder="e.g., beautiful"
+                    style="width: 100%; padding: 12px; background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); outline: none; font-size: 16px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">Polish Translation</label>
+                <input type="text" id="add-word-polish" placeholder="e.g., piękny"
+                    style="width: 100%; padding: 12px; background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); outline: none; font-size: 16px;">
+            </div>
+            <button onclick="addWordToCurrentSet()" style="width: 100%; padding: 14px; background: var(--accent-gradient); border: none; border-radius: var(--radius-lg); color: white; font-size: 16px; font-weight: 600; cursor: pointer;">
+                <span class="material-icons-round" style="font-size: 20px; vertical-align: middle; margin-right: 8px;">add_circle</span>
+                Add Word
+            </button>
+        </div>
+    </div>
+</div>
+
 <script>
 // ===== DATA & STATE =====
 let allWords = [];
@@ -1705,10 +1816,16 @@ let currentIndex = 0;
 let currentMode = '';
 let sessionStats = { correct: 0, wrong: 0 };
 
+// Word Sets Management
+let wordSets = {}; // { setId: { name, words, createdAt, lastUsed } }
+let currentSetId = null;
+
 const STORAGE_KEY = 'wordmaster_progress';
 const TIME_STATS_KEY = 'wordmaster_time_stats';
 const GAMIFICATION_KEY = 'wordmaster_gamification';
 const API_KEY_STORAGE = 'wordmaster_api_key';
+const WORD_SETS_KEY = 'wordmaster_word_sets';
+const CURRENT_SET_KEY = 'wordmaster_current_set';
 const SESSION_SIZE = 20;
 
 // LLM API Configuration
@@ -1753,12 +1870,14 @@ const ttsLangMap = {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', async () => {
+    loadWordSets();
+    loadCurrentSet();
     await loadWords();
     loadTimeStats();
     loadGamificationStats();
     loadAPIKey();
-    updateStats();
     updateGamificationUI();
+    updateHomeWordSetsGrid(); // Update home page word sets grid
     startTimeTracking();
     checkAPIKeyStatus();
 });
@@ -1779,15 +1898,41 @@ window.addEventListener('beforeunload', () => {
     saveTimeStats();
 });
 
-async function loadWords() {
-    try {
-        const response = await fetch('common-words.json');
-        const data = await response.json();
-        processWordsData(data);
-    } catch (error) {
-        console.error('Error loading words:', error);
-        console.log('No default file found. Please import a JSON file using the upload button.');
+// Add Enter key support for forms
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            if (activeModal.id === 'add-word-modal') {
+                addWordToCurrentSet();
+            } else if (activeModal.id === 'word-sets-modal') {
+                const newSetInput = document.getElementById('new-set-name');
+                if (document.activeElement === newSetInput) {
+                    createNewWordSet();
+                }
+            }
+        }
     }
+});
+
+async function loadWords() {
+    // Load words from current set
+    if (currentSetId && wordSets[currentSetId]) {
+        allWords = wordSets[currentSetId].words.map(word => ({
+            ...word,
+            level: word.level || SR_LEVELS.NEW,
+            lastReview: word.lastReview || null,
+            reviewCount: word.reviewCount || 0,
+            correctStreak: word.correctStreak || 0,
+            wrongCount: word.wrongCount || 0,
+            correctCount: word.correctCount || 0
+        }));
+        loadProgress();
+        return;
+    }
+
+    // If no set selected, no words to load
+    allWords = [];
 }
 
 function processWordsData(data) {
@@ -1818,6 +1963,8 @@ function loadProgress() {
                     word.lastReview = savedWord.lastReview;
                     word.reviewCount = savedWord.reviewCount || 0;
                     word.correctStreak = savedWord.correctStreak || 0;
+                    word.wrongCount = savedWord.wrongCount || 0;
+                    word.correctCount = savedWord.correctCount || 0;
                 }
             });
         } catch (e) {
@@ -1833,10 +1980,372 @@ function saveProgress() {
             level: word.level,
             lastReview: word.lastReview,
             reviewCount: word.reviewCount,
-            correctStreak: word.correctStreak
+            correctStreak: word.correctStreak,
+            wrongCount: word.wrongCount || 0,
+            correctCount: word.correctCount || 0
         };
     });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+
+    // Also save to current word set
+    if (currentSetId && wordSets[currentSetId]) {
+        wordSets[currentSetId].words = allWords.map(word => ({
+            ...word,
+            wrongCount: word.wrongCount || 0,
+            correctCount: word.correctCount || 0
+        }));
+        wordSets[currentSetId].lastUsed = new Date().toISOString();
+        saveWordSets();
+    }
+}
+
+// ===== WORD SETS MANAGEMENT =====
+function loadWordSets() {
+    const saved = localStorage.getItem(WORD_SETS_KEY);
+    if (saved) {
+        try {
+            wordSets = JSON.parse(saved);
+
+            // Migrate old sets to new format with stats
+            Object.keys(wordSets).forEach(setId => {
+                if (!wordSets[setId].stats) {
+                    wordSets[setId].stats = {
+                        level: 1,
+                        xp: 0,
+                        totalXP: 0,
+                        totalCorrect: 0,
+                        totalWrong: 0,
+                        sessionsCompleted: 0,
+                        timeSpent: 0
+                    };
+                }
+            });
+
+            // Save migrated data
+            saveWordSets();
+        } catch (e) {
+            console.error('Error loading word sets:', e);
+            wordSets = {};
+        }
+    }
+}
+
+function saveWordSets() {
+    localStorage.setItem(WORD_SETS_KEY, JSON.stringify(wordSets));
+}
+
+function loadCurrentSet() {
+    const saved = localStorage.getItem(CURRENT_SET_KEY);
+    if (saved) {
+        currentSetId = saved;
+    }
+}
+
+function saveCurrentSet() {
+    if (currentSetId) {
+        localStorage.setItem(CURRENT_SET_KEY, currentSetId);
+    }
+}
+
+function generateSetId() {
+    return 'set_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function createNewWordSet() {
+    const nameInput = document.getElementById('new-set-name');
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        alert('Please enter a name for the word set');
+        return;
+    }
+
+    const setId = generateSetId();
+    wordSets[setId] = {
+        id: setId,
+        name: name,
+        words: [],
+        createdAt: new Date().toISOString(),
+        lastUsed: new Date().toISOString(),
+        stats: {
+            level: 1,
+            xp: 0,
+            totalXP: 0,
+            totalCorrect: 0,
+            totalWrong: 0,
+            sessionsCompleted: 0,
+            timeSpent: 0
+        }
+    };
+
+    saveWordSets();
+    switchToSet(setId);
+    nameInput.value = '';
+    updateWordSetsList();
+    updateHomeWordSetsGrid();
+
+    alert(`✅ Created new set: "${name}"\nYou can now add words to it!`);
+
+    // Show add word modal
+    setTimeout(() => {
+        showAddWordModal();
+    }, 500);
+}
+
+async function loadCommonWordsAsSet() {
+    try {
+        const response = await fetch('common-words.json');
+        const data = await response.json();
+        const deckKey = Object.keys(data).find(k => k.startsWith('lingua_vocab_'));
+
+        if (deckKey && data[deckKey].words) {
+            const setId = generateSetId();
+            wordSets[setId] = {
+                id: setId,
+                name: 'Common 1000 English Words',
+                words: data[deckKey].words.map(word => ({
+                    ...word,
+                    level: SR_LEVELS.NEW,
+                    lastReview: null,
+                    reviewCount: 0,
+                    correctStreak: 0
+                })),
+                createdAt: new Date().toISOString(),
+                lastUsed: new Date().toISOString(),
+                stats: {
+                    level: 1,
+                    xp: 0,
+                    totalXP: 0,
+                    totalCorrect: 0,
+                    totalWrong: 0,
+                    sessionsCompleted: 0,
+                    timeSpent: 0
+                }
+            };
+
+            saveWordSets();
+            switchToSet(setId);
+            updateWordSetsList();
+            updateHomeWordSetsGrid();
+
+            alert('✅ Loaded 1000 common English words!');
+        }
+    } catch (error) {
+        console.error('Error loading common words:', error);
+        alert('❌ Error loading common words file');
+    }
+}
+
+async function switchToSet(setId) {
+    if (!wordSets[setId]) {
+        console.error('Set not found:', setId);
+        return;
+    }
+
+    currentSetId = setId;
+    saveCurrentSet();
+
+    // Update last used
+    wordSets[setId].lastUsed = new Date().toISOString();
+    saveWordSets();
+
+    // Reload words
+    await loadWords();
+
+    hideWordSetsModal();
+
+    // Go to practice view
+    showView('view-set-practice');
+    updatePracticeView();
+}
+
+async function openSetPractice(setId) {
+    if (!wordSets[setId]) {
+        console.error('Set not found:', setId);
+        return;
+    }
+
+    // If not already active, switch to it
+    if (currentSetId !== setId) {
+        currentSetId = setId;
+        saveCurrentSet();
+
+        // Update last used
+        wordSets[setId].lastUsed = new Date().toISOString();
+        saveWordSets();
+
+        // Reload words
+        await loadWords();
+    }
+
+    // Go to practice view
+    showView('view-set-practice');
+    updatePracticeView();
+}
+
+function deleteWordSet(setId) {
+    if (!confirm(`Are you sure you want to delete "${wordSets[setId].name}"? This cannot be undone.`)) {
+        return;
+    }
+
+    delete wordSets[setId];
+    saveWordSets();
+
+    if (currentSetId === setId) {
+        currentSetId = null;
+        saveCurrentSet();
+        allWords = [];
+        updateStats();
+        updateCurrentSetDisplay();
+    }
+
+    updateWordSetsList();
+    updateHomeWordSetsGrid();
+}
+
+function updateCurrentSetDisplay() {
+    // Update home page word sets grid
+    updateHomeWordSetsGrid();
+}
+
+function updatePracticeView() {
+    if (!currentSetId || !wordSets[currentSetId]) {
+        goHome();
+        return;
+    }
+
+    const set = wordSets[currentSetId];
+
+    // Initialize stats if not present
+    if (!set.stats) {
+        set.stats = {
+            level: 1,
+            xp: 0,
+            totalXP: 0,
+            totalCorrect: 0,
+            totalWrong: 0,
+            sessionsCompleted: 0,
+            timeSpent: 0
+        };
+    }
+
+    // Update set name in header
+    const nameEl = document.getElementById('practice-set-name');
+    if (nameEl) nameEl.textContent = set.name;
+
+    // Update gamification stats in practice view (using set-specific stats)
+    updateSetGamificationUI(set);
+
+    // Update stats for this set only
+    updateSetStats();
+}
+
+function updateSetStats() {
+    const total = allWords.length;
+    const mastered = allWords.filter(w => w.level === SR_LEVELS.MASTERED).length;
+    const learning = allWords.filter(w => w.level === SR_LEVELS.LEARNING || w.level === SR_LEVELS.REVIEW).length;
+    const newWords = allWords.filter(w => w.level === SR_LEVELS.NEW).length;
+
+    const progressPercent = total > 0 ? Math.round((mastered / total) * 100) : 0;
+
+    // Update stats in practice view
+    const totalEl = document.getElementById('stat-total-practice');
+    const knownEl = document.getElementById('stat-known-practice');
+    const learningEl = document.getElementById('stat-learning-practice');
+
+    if (totalEl) totalEl.textContent = total;
+    if (knownEl) knownEl.textContent = mastered;
+    if (learningEl) learningEl.textContent = learning;
+
+    // Update progress ring
+    const circle = document.getElementById('progress-circle-practice');
+    const percentEl = document.getElementById('progress-percent-practice');
+    if (circle && percentEl) {
+        const circumference = 377;
+        const offset = circumference - (progressPercent / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+        percentEl.textContent = progressPercent + '%';
+    }
+
+    // Update SR levels
+    const srNew = document.getElementById('sr-new-practice');
+    const srLearning = document.getElementById('sr-learning-practice');
+    const srReview = document.getElementById('sr-review-practice');
+    const srMastered = document.getElementById('sr-mastered-practice');
+
+    if (srNew) srNew.textContent = newWords;
+    if (srLearning) srLearning.textContent = learning;
+    if (srReview) srReview.textContent = allWords.filter(w => w.level === SR_LEVELS.REVIEW).length;
+    if (srMastered) srMastered.textContent = mastered;
+
+    // Update time display
+    updateTimeDisplay('practice');
+}
+
+function updateHomeWordSetsGrid() {
+    const gridEl = document.getElementById('home-word-sets-grid');
+    const emptyState = document.getElementById('empty-state');
+
+    if (!gridEl) return;
+
+    const sets = Object.values(wordSets).sort((a, b) =>
+        new Date(b.lastUsed) - new Date(a.lastUsed)
+    );
+
+    if (sets.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        gridEl.innerHTML = '';
+        return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    gridEl.innerHTML = sets.map(set => {
+        const isActive = set.id === currentSetId;
+        const masteredCount = set.words.filter(w => w.level === SR_LEVELS.MASTERED).length;
+        const learningCount = set.words.filter(w => w.level === SR_LEVELS.LEARNING || w.level === SR_LEVELS.REVIEW).length;
+        const progressPercent = set.words.length > 0 ? Math.round((masteredCount / set.words.length) * 100) : 0;
+
+        return `
+            <div class="mode-card" onclick='openSetPractice("${set.id}")' style="padding: 24px; cursor: pointer; ${isActive ? 'border: 2px solid var(--accent-primary); background: linear-gradient(145deg, var(--bg-card) 0%, rgba(99, 102, 241, 0.05) 100%);' : ''}">
+                ${isActive ? '<div style="position: absolute; top: 16px; right: 16px; background: var(--accent-primary); color: white; padding: 4px 12px; border-radius: var(--radius-full); font-size: 11px; font-weight: 700;">ACTIVE</div>' : ''}
+
+                <div style="font-size: 32px; margin-bottom: 12px;">📚</div>
+
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px; ${isActive ? 'background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;' : ''}">${set.name}</div>
+
+                <div style="display: flex; gap: 16px; margin-bottom: 12px; font-size: 13px; color: var(--text-muted);">
+                    <div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--text-primary);">${set.words.length}</div>
+                        <div>Total</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--success);">${masteredCount}</div>
+                        <div>Mastered</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--warning);">${learningCount}</div>
+                        <div>Learning</div>
+                    </div>
+                </div>
+
+                <div style="height: 6px; background: var(--bg-elevated); border-radius: var(--radius-full); overflow: hidden; margin-bottom: 16px;">
+                    <div style="height: 100%; width: ${progressPercent}%; background: var(--accent-gradient); border-radius: var(--radius-full); transition: width 0.5s ease;"></div>
+                </div>
+
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+                    Last used: ${new Date(set.lastUsed).toLocaleDateString()}
+                </div>
+
+                <div style="display: flex; gap: 8px;" onclick="event.stopPropagation()">
+                    <button onclick='deleteWordSet("${set.id}")' style="padding: 10px 16px; background: rgba(239, 68, 68, 0.15); border: 2px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-md); color: var(--error); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-icons-round" style="font-size: 18px;">delete</span>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // ===== TIME TRACKING =====
@@ -1960,7 +2469,7 @@ function resumeTimeTracking() {
     }
 }
 
-function updateTimeDisplay() {
+function updateTimeDisplay(suffix = '') {
     const hours = Math.floor(totalTimeToday / 3600);
     const minutes = Math.floor((totalTimeToday % 3600) / 60);
     const seconds = totalTimeToday % 60;
@@ -1974,7 +2483,7 @@ function updateTimeDisplay() {
         timeStr = `${seconds}s`;
     }
 
-    const timeElement = document.getElementById('time-today');
+    const timeElement = document.getElementById('time-today' + (suffix ? '-' + suffix : ''));
     if (timeElement) {
         timeElement.textContent = timeStr;
     }
@@ -2020,49 +2529,8 @@ function updateWeekChart() {
 
 // ===== STATS & UI UPDATES =====
 function updateStats() {
-    const total = allWords.length;
-
-    // Show/hide empty state
-    if (total === 0) {
-        document.getElementById('empty-state').style.display = 'block';
-        document.getElementById('stats-hero').style.display = 'none';
-        document.querySelector('.sr-info').style.display = 'none';
-        document.querySelector('.modes-grid').parentElement.style.display = 'none';
-        return;
-    } else {
-        document.getElementById('empty-state').style.display = 'none';
-        document.getElementById('stats-hero').style.display = 'block';
-        document.querySelector('.sr-info').style.display = 'block';
-        document.querySelector('.modes-grid').parentElement.style.display = 'block';
-    }
-
-    const mastered = allWords.filter(w => w.level === SR_LEVELS.MASTERED).length;
-    const learning = allWords.filter(w => w.level === SR_LEVELS.LEARNING || w.level === SR_LEVELS.REVIEW).length;
-
-    const newWords = allWords.filter(w => w.level === SR_LEVELS.NEW).length;
-    const learningWords = allWords.filter(w => w.level === SR_LEVELS.LEARNING).length;
-    const reviewWords = allWords.filter(w => w.level === SR_LEVELS.REVIEW).length;
-    const masteredWords = allWords.filter(w => w.level === SR_LEVELS.MASTERED).length;
-
-    const percent = total > 0 ? Math.round((mastered / total) * 100) : 0;
-
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-known').textContent = mastered;
-    document.getElementById('stat-learning').textContent = learning;
-    document.getElementById('progress-percent').textContent = percent + '%';
-
-    document.getElementById('sr-new').textContent = newWords;
-    document.getElementById('sr-learning').textContent = learningWords;
-    document.getElementById('sr-review').textContent = reviewWords;
-    document.getElementById('sr-mastered').textContent = masteredWords;
-
-    // Update progress ring
-    const circumference = 2 * Math.PI * 60;
-    const offset = circumference - (percent / 100) * circumference;
-    document.getElementById('progress-circle').style.strokeDashoffset = offset;
-
-    // Update weekly chart
-    updateWeekChart();
+    // This function is deprecated - stats are now shown in practice view only
+    // Kept for backward compatibility with other parts of code
 }
 
 // ===== NAVIGATION =====
@@ -2073,8 +2541,14 @@ function showView(viewId) {
 
 function goHome() {
     showView('view-home');
-    updateStats();
+    updateHomeWordSetsGrid();
     saveProgress();
+}
+
+function goBackToPractice() {
+    saveProgress();
+    showView('view-set-practice');
+    updatePracticeView();
 }
 
 // ===== DIFFICULT WORDS =====
@@ -2238,10 +2712,6 @@ function startMode(mode) {
         case 'reverse':
             showView('view-reverse');
             showReverse();
-            break;
-        case 'speed':
-            // Speed mode - coming soon
-            alert('Speed Round coming soon! 🚀');
             break;
     }
 }
@@ -2798,7 +3268,7 @@ function showComplete() {
 function continueSession() {
     // Start a new session with the same mode
     if (!currentMode) {
-        goHome();
+        goBackToPractice();
         return;
     }
     startMode(currentMode);
@@ -3010,12 +3480,12 @@ function unlockAchievement(achievement) {
     }, 4000);
 }
 
-function updateGamificationUI() {
+function updateGamificationUI(suffix = '') {
     // Update level and XP
-    const levelEl = document.getElementById('player-level');
-    const xpEl = document.getElementById('player-xp');
-    const xpBarEl = document.getElementById('xp-bar');
-    const streakEl = document.getElementById('player-streak');
+    const levelEl = document.getElementById('player-level' + (suffix ? '-' + suffix : ''));
+    const xpEl = document.getElementById('player-xp' + (suffix ? '-' + suffix : ''));
+    const xpBarEl = document.getElementById('xp-bar' + (suffix ? '-' + suffix : ''));
+    const streakEl = document.getElementById('player-streak' + (suffix ? '-' + suffix : ''));
 
     if (levelEl) levelEl.textContent = playerStats.level;
     if (streakEl) streakEl.textContent = playerStats.streak;
@@ -3024,6 +3494,23 @@ function updateGamificationUI() {
     const xpPercent = (playerStats.xp / xpNeeded) * 100;
 
     if (xpEl) xpEl.textContent = `${playerStats.xp} / ${xpNeeded} XP`;
+    if (xpBarEl) xpBarEl.style.width = xpPercent + '%';
+}
+
+function updateSetGamificationUI(set) {
+    // Update level and XP for set-specific stats
+    const levelEl = document.getElementById('player-level-practice');
+    const xpEl = document.getElementById('player-xp-practice');
+    const xpBarEl = document.getElementById('xp-bar-practice');
+    const streakEl = document.getElementById('player-streak-practice');
+
+    if (levelEl) levelEl.textContent = set.stats.level;
+    if (streakEl) streakEl.textContent = playerStats.streak; // Global streak
+
+    const xpNeeded = XP_PER_LEVEL * set.stats.level;
+    const xpPercent = (set.stats.xp / xpNeeded) * 100;
+
+    if (xpEl) xpEl.textContent = `${set.stats.xp} / ${xpNeeded} XP`;
     if (xpBarEl) xpBarEl.style.width = xpPercent + '%';
 }
 
@@ -3053,6 +3540,192 @@ function hideAchievements() {
     if (modal) {
         modal.classList.remove('active');
     }
+}
+
+// ===== WORD SETS UI =====
+function showCreateSetOptions() {
+    showWordSetsModal();
+    // Focus on the new set name input
+    setTimeout(() => {
+        const input = document.getElementById('new-set-name');
+        if (input) input.focus();
+    }, 100);
+}
+
+function showWordSetsModal() {
+    const modal = document.getElementById('word-sets-modal');
+    if (modal) {
+        updateWordSetsList();
+        modal.classList.add('active');
+    }
+}
+
+function hideWordSetsModal() {
+    const modal = document.getElementById('word-sets-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function updateWordSetsList() {
+    const listEl = document.getElementById('word-sets-list');
+    if (!listEl) return;
+
+    const sets = Object.values(wordSets).sort((a, b) =>
+        new Date(b.lastUsed) - new Date(a.lastUsed)
+    );
+
+    if (sets.length === 0) {
+        listEl.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                <div style="font-size: 48px; margin-bottom: 12px;">📭</div>
+                <p>No word sets yet. Create one above!</p>
+            </div>
+        `;
+        return;
+    }
+
+    listEl.innerHTML = sets.map(set => {
+        const isActive = set.id === currentSetId;
+        const masteredCount = set.words.filter(w => w.level === SR_LEVELS.MASTERED).length;
+        const progressPercent = set.words.length > 0 ? Math.round((masteredCount / set.words.length) * 100) : 0;
+
+        return `
+            <div style="background: ${isActive ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1))' : 'var(--bg-card)'};
+                        border: 2px solid ${isActive ? 'var(--accent-primary)' : 'var(--border-subtle)'};
+                        border-radius: var(--radius-lg);
+                        padding: 16px;
+                        position: relative;">
+                ${isActive ? '<div style="position: absolute; top: 12px; right: 12px; background: var(--accent-primary); color: white; padding: 4px 12px; border-radius: var(--radius-full); font-size: 11px; font-weight: 700;">ACTIVE</div>' : ''}
+
+                <div style="margin-bottom: 12px;">
+                    <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">${set.name}</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">
+                        ${set.words.length} words • ${masteredCount} mastered (${progressPercent}%)
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+                        Created: ${new Date(set.createdAt).toLocaleDateString()}
+                    </div>
+                </div>
+
+                <div style="height: 4px; background: var(--bg-elevated); border-radius: var(--radius-full); overflow: hidden; margin-bottom: 12px;">
+                    <div style="height: 100%; width: ${progressPercent}%; background: var(--accent-gradient); border-radius: var(--radius-full);"></div>
+                </div>
+
+                <div style="display: flex; gap: 8px;">
+                    ${!isActive ? `
+                        <button onclick="switchToSet('${set.id}')" style="flex: 1; padding: 8px 16px; background: var(--accent-gradient); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer;">
+                            <span class="material-icons-round" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">play_arrow</span>
+                            Use This Set
+                        </button>
+                    ` : `
+                        <button onclick="showAddWordModal()" style="flex: 1; padding: 8px 16px; background: var(--bg-elevated); border: 2px solid var(--border-accent); border-radius: var(--radius-md); color: var(--text-primary); font-weight: 600; cursor: pointer;">
+                            <span class="material-icons-round" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">add</span>
+                            Add Words
+                        </button>
+                    `}
+                    <button onclick="deleteWordSet('${set.id}')" style="padding: 8px 16px; background: rgba(239, 68, 68, 0.15); border: 2px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-md); color: var(--error); font-weight: 600; cursor: pointer;">
+                        <span class="material-icons-round" style="font-size: 16px; vertical-align: middle;">delete</span>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function showAddWordModal() {
+    if (!currentSetId) {
+        alert('Please select a word set first');
+        return;
+    }
+
+    const modal = document.getElementById('add-word-modal');
+    if (modal) {
+        document.getElementById('add-word-english').value = '';
+        document.getElementById('add-word-polish').value = '';
+        modal.classList.add('active');
+
+        // Focus on English input
+        setTimeout(() => {
+            document.getElementById('add-word-english').focus();
+        }, 100);
+    }
+}
+
+function hideAddWordModal() {
+    const modal = document.getElementById('add-word-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+async function addWordToCurrentSet() {
+    if (!currentSetId || !wordSets[currentSetId]) {
+        alert('No word set selected');
+        return;
+    }
+
+    const englishInput = document.getElementById('add-word-english');
+    const polishInput = document.getElementById('add-word-polish');
+
+    const english = englishInput.value.trim();
+    const polish = polishInput.value.trim();
+
+    if (!english || !polish) {
+        alert('Please enter both English word and Polish translation');
+        return;
+    }
+
+    // Check if word already exists
+    const exists = wordSets[currentSetId].words.some(w =>
+        w.w.toLowerCase() === english.toLowerCase()
+    );
+
+    if (exists) {
+        alert('This word already exists in the set');
+        return;
+    }
+
+    // Add new word
+    const newWord = {
+        w: english,
+        t: polish,
+        level: SR_LEVELS.NEW,
+        lastReview: null,
+        reviewCount: 0,
+        correctStreak: 0,
+        wrongCount: 0,
+        correctCount: 0
+    };
+
+    wordSets[currentSetId].words.push(newWord);
+    wordSets[currentSetId].lastUsed = new Date().toISOString();
+    saveWordSets();
+
+    // Reload words
+    await loadWords();
+    updateCurrentSetDisplay();
+    updateHomeWordSetsGrid();
+
+    // Update practice view if we're on it
+    const practiceView = document.getElementById('view-set-practice');
+    if (practiceView && practiceView.classList.contains('active')) {
+        updatePracticeView();
+    }
+
+    // Clear inputs
+    englishInput.value = '';
+    polishInput.value = '';
+
+    // Show success message
+    const successMsg = document.createElement('div');
+    successMsg.style.cssText = 'position: fixed; top: 100px; right: 24px; background: var(--success); color: white; padding: 16px 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); z-index: 9999; font-weight: 600;';
+    successMsg.textContent = `✅ Added: "${english}" → "${polish}"`;
+    document.body.appendChild(successMsg);
+    setTimeout(() => successMsg.remove(), 2000);
+
+    // Focus back on English input for quick adding
+    englishInput.focus();
 }
 
 // ===== API KEY MANAGEMENT =====
