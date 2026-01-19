@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 Angielskich Słów - Łatwych do Zapamiętania</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; min-height: 100vh; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 10px; color: #00d4ff; font-size: 2em; }
+        h2 { color: #ff6b6b; margin: 30px 0 15px; padding: 10px; background: rgba(255,107,107,0.1); border-radius: 8px; border-left: 4px solid #ff6b6b; }
+        h3 { color: #ffd93d; margin: 20px 0 10px; font-size: 1.1em; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+        .word-card { background: rgba(255,255,255,0.05); padding: 12px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .word-card:hover { background: rgba(0,212,255,0.1); transform: translateX(5px); border-color: #00d4ff; }
+        .eng { color: #00d4ff; font-weight: bold; font-size: 1.1em; }
+        .pl { color: #aaa; }
+        .counter { position: fixed; bottom: 20px; right: 20px; background: #ff6b6b; padding: 15px 25px; border-radius: 50px; font-weight: bold; }
+        .search-box { width: 100%; max-width: 400px; margin: 0 auto 30px; display: block; padding: 15px 20px; border-radius: 50px; border: 2px solid #00d4ff; background: rgba(0,0,0,0.3); color: #fff; font-size: 1em; }
+        .search-box::placeholder { color: #666; }
+        .search-box:focus { outline: none; box-shadow: 0 0 20px rgba(0,212,255,0.3); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇬🇧 500 Angielskich Słów 🇵🇱</h1>
+        <p class="subtitle">Łatwe do zapamiętania - podobne do polskich lub najczęściej używane</p>
+        <input type="text" class="search-box" placeholder="🔍 Szukaj słowa..." id="search" onkeyup="filterWords()">
+
+        <h2>📚 CZĘŚĆ 1: Słowa podobne do polskich (Cognates) - 200 słów</h2>
+        
+        <h3>🖥️ Technologia i Nauka</h3>
+        <div class="words-grid" id="tech">
+            <div class="word-card"><span class="eng">computer</span><span class="pl">komputer</span></div>
+            <div class="word-card"><span class="eng">telephone</span><span class="pl">telefon</span></div>
+            <div class="word-card"><span class="eng">television</span><span class="pl">telewizja</span></div>
+            <div class="word-card"><span class="eng">internet</span><span class="pl">internet</span></div>
+            <div class="word-card"><span class="eng">program</span><span class="pl">program</span></div>
+            <div class="word-card"><span class="eng">system</span><span class="pl">system</span></div>
+            <div class="word-card"><span class="eng">technology</span><span class="pl">technologia</span></div>
+            <div class="word-card"><span class="eng">electronic</span><span class="pl">elektroniczny</span></div>
+            <div class="word-card"><span class="eng">digital</span><span class="pl">cyfrowy/digitalny</span></div>
+            <div class="word-card"><span class="eng">monitor</span><span class="pl">monitor</span></div>
+            <div class="word-card"><span class="eng">printer</span><span class="pl">drukarka/printer</span></div>
+            <div class="word-card"><span class="eng">scanner</span><span class="pl">skaner</span></div>
+            <div class="word-card"><span class="eng">laptop</span><span class="pl">laptop</span></div>
+            <div class="word-card"><span class="eng">tablet</span><span class="pl">tablet</span></div>
+            <div class="word-card"><span class="eng">smartphone</span><span class="pl">smartfon</span></div>
+            <div class="word-card"><span class="eng">application</span><span class="pl">aplikacja</span></div>
+            <div class="word-card"><span class="eng">software</span><span class="pl">oprogramowanie</span></div>
+            <div class="word-card"><span class="eng">hardware</span><span class="pl">sprzęt komputerowy</span></div>
+            <div class="word-card"><span class="eng">processor</span><span class="pl">procesor</span></div>
+            <div class="word-card"><span class="eng">memory</span><span class="pl">pamięć</span></div>
+            <div class="word-card"><span class="eng">battery</span><span class="pl">bateria</span></div>
+            <div class="word-card"><span class="eng">cable</span><span class="pl">kabel</span></div>
+            <div class="word-card"><span class="eng">signal</span><span class="pl">sygnał</span></div>
+            <div class="word-card"><span class="eng">antenna</span><span class="pl">antena</span></div>
+            <div class="word-card"><span class="eng">satellite</span><span class="pl">satelita</span></div>
+            <div class="word-card"><span class="eng">robot</span><span class="pl">robot</span></div>
+            <div class="word-card"><span class="eng">automatic</span><span class="pl">automatyczny</span></div>
+            <div class="word-card"><span class="eng">mechanic</span><span class="pl">mechanik</span></div>
+            <div class="word-card"><span class="eng">motor</span><span class="pl">motor/silnik</span></div>
+            <div class="word-card"><span class="eng">energy</span><span class="pl">energia</span></div>
+        </div>
+
+        <h3>🔬 Nauka i Medycyna</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">doctor</span><span class="pl">doktor/lekarz</span></div>
+            <div class="word-card"><span class="eng">hospital</span><span class="pl">szpital</span></div>
+            <div class="word-card"><span class="eng">medicine</span><span class="pl">medycyna/lekarstwo</span></div>
+            <div class="word-card"><span class="eng">pharmacy</span><span class="pl">apteka/farmacja</span></div>
+            <div class="word-card"><span class="eng">vitamin</span><span class="pl">witamina</span></div>
+            <div class="word-card"><span class="eng">protein</span><span class="pl">proteina/białko</span></div>
+            <div class="word-card"><span class="eng">bacteria</span><span class="pl">bakteria</span></div>
+            <div class="word-card"><span class="eng">virus</span><span class="pl">wirus</span></div>
+            <div class="word-card"><span class="eng">vaccine</span><span class="pl">szczepionka</span></div>
+            <div class="word-card"><span class="eng">antibiotic</span><span class="pl">antybiotyk</span></div>
+            <div class="word-card"><span class="eng">diagnosis</span><span class="pl">diagnoza</span></div>
+            <div class="word-card"><span class="eng">therapy</span><span class="pl">terapia</span></div>
+            <div class="word-card"><span class="eng">operation</span><span class="pl">operacja</span></div>
+            <div class="word-card"><span class="eng">surgeon</span><span class="pl">chirurg</span></div>
+            <div class="word-card"><span class="eng">nurse</span><span class="pl">pielęgniarka</span></div>
+            <div class="word-card"><span class="eng">patient</span><span class="pl">pacjent</span></div>
+            <div class="word-card"><span class="eng">symptom</span><span class="pl">symptom/objaw</span></div>
+            <div class="word-card"><span class="eng">temperature</span><span class="pl">temperatura</span></div>
+            <div class="word-card"><span class="eng">laboratory</span><span class="pl">laboratorium</span></div>
+            <div class="word-card"><span class="eng">experiment</span><span class="pl">eksperyment</span></div>
+            <div class="word-card"><span class="eng">theory</span><span class="pl">teoria</span></div>
+            <div class="word-card"><span class="eng">hypothesis</span><span class="pl">hipoteza</span></div>
+            <div class="word-card"><span class="eng">analysis</span><span class="pl">analiza</span></div>
+            <div class="word-card"><span class="eng">formula</span><span class="pl">formuła</span></div>
+            <div class="word-card"><span class="eng">atom</span><span class="pl">atom</span></div>
+            <div class="word-card"><span class="eng">molecule</span><span class="pl">molekuła/cząsteczka</span></div>
+            <div class="word-card"><span class="eng">element</span><span class="pl">element</span></div>
+            <div class="word-card"><span class="eng">oxygen</span><span class="pl">tlen</span></div>
+            <div class="word-card"><span class="eng">carbon</span><span class="pl">węgiel</span></div>
+            <div class="word-card"><span class="eng">chemistry</span><span class="pl">chemia</span></div>
+        </div>
+
+        <h3>🎓 Edukacja</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">university</span><span class="pl">uniwersytet</span></div>
+            <div class="word-card"><span class="eng">professor</span><span class="pl">profesor</span></div>
+            <div class="word-card"><span class="eng">student</span><span class="pl">student</span></div>
+            <div class="word-card"><span class="eng">lecture</span><span class="pl">wykład/lekcja</span></div>
+            <div class="word-card"><span class="eng">seminar</span><span class="pl">seminarium</span></div>
+            <div class="word-card"><span class="eng">diploma</span><span class="pl">dyplom</span></div>
+            <div class="word-card"><span class="eng">certificate</span><span class="pl">certyfikat</span></div>
+            <div class="word-card"><span class="eng">exam</span><span class="pl">egzamin</span></div>
+            <div class="word-card"><span class="eng">test</span><span class="pl">test</span></div>
+            <div class="word-card"><span class="eng">mathematics</span><span class="pl">matematyka</span></div>
+            <div class="word-card"><span class="eng">physics</span><span class="pl">fizyka</span></div>
+            <div class="word-card"><span class="eng">biology</span><span class="pl">biologia</span></div>
+            <div class="word-card"><span class="eng">geography</span><span class="pl">geografia</span></div>
+            <div class="word-card"><span class="eng">history</span><span class="pl">historia</span></div>
+            <div class="word-card"><span class="eng">philosophy</span><span class="pl">filozofia</span></div>
+            <div class="word-card"><span class="eng">psychology</span><span class="pl">psychologia</span></div>
+            <div class="word-card"><span class="eng">sociology</span><span class="pl">socjologia</span></div>
+            <div class="word-card"><span class="eng">economics</span><span class="pl">ekonomia</span></div>
+            <div class="word-card"><span class="eng">literature</span><span class="pl">literatura</span></div>
+            <div class="word-card"><span class="eng">grammar</span><span class="pl">gramatyka</span></div>
+        </div>
+
+        <h3>🎵 Muzyka i Sztuka</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">music</span><span class="pl">muzyka</span></div>
+            <div class="word-card"><span class="eng">concert</span><span class="pl">koncert</span></div>
+            <div class="word-card"><span class="eng">orchestra</span><span class="pl">orkiestra</span></div>
+            <div class="word-card"><span class="eng">piano</span><span class="pl">pianino/fortepian</span></div>
+            <div class="word-card"><span class="eng">guitar</span><span class="pl">gitara</span></div>
+            <div class="word-card"><span class="eng">violin</span><span class="pl">skrzypce</span></div>
+            <div class="word-card"><span class="eng">trumpet</span><span class="pl">trąbka</span></div>
+            <div class="word-card"><span class="eng">drums</span><span class="pl">perkusja/bębny</span></div>
+            <div class="word-card"><span class="eng">melody</span><span class="pl">melodia</span></div>
+            <div class="word-card"><span class="eng">rhythm</span><span class="pl">rytm</span></div>
+            <div class="word-card"><span class="eng">harmony</span><span class="pl">harmonia</span></div>
+            <div class="word-card"><span class="eng">opera</span><span class="pl">opera</span></div>
+            <div class="word-card"><span class="eng">ballet</span><span class="pl">balet</span></div>
+            <div class="word-card"><span class="eng">theatre</span><span class="pl">teatr</span></div>
+            <div class="word-card"><span class="eng">drama</span><span class="pl">dramat</span></div>
+            <div class="word-card"><span class="eng">comedy</span><span class="pl">komedia</span></div>
+            <div class="word-card"><span class="eng">tragedy</span><span class="pl">tragedia</span></div>
+            <div class="word-card"><span class="eng">actor</span><span class="pl">aktor</span></div>
+            <div class="word-card"><span class="eng">director</span><span class="pl">dyrektor/reżyser</span></div>
+            <div class="word-card"><span class="eng">artist</span><span class="pl">artysta</span></div>
+        </div>
+
+        <h3>⚽ Sport</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">sport</span><span class="pl">sport</span></div>
+            <div class="word-card"><span class="eng">football</span><span class="pl">piłka nożna/futbol</span></div>
+            <div class="word-card"><span class="eng">basketball</span><span class="pl">koszykówka</span></div>
+            <div class="word-card"><span class="eng">volleyball</span><span class="pl">siatkówka</span></div>
+            <div class="word-card"><span class="eng">tennis</span><span class="pl">tenis</span></div>
+            <div class="word-card"><span class="eng">golf</span><span class="pl">golf</span></div>
+            <div class="word-card"><span class="eng">marathon</span><span class="pl">maraton</span></div>
+            <div class="word-card"><span class="eng">stadium</span><span class="pl">stadion</span></div>
+            <div class="word-card"><span class="eng">champion</span><span class="pl">mistrz/czempion</span></div>
+            <div class="word-card"><span class="eng">medal</span><span class="pl">medal</span></div>
+            <div class="word-card"><span class="eng">team</span><span class="pl">drużyna/team</span></div>
+            <div class="word-card"><span class="eng">trainer</span><span class="pl">trener</span></div>
+            <div class="word-card"><span class="eng">final</span><span class="pl">finał</span></div>
+            <div class="word-card"><span class="eng">record</span><span class="pl">rekord</span></div>
+            <div class="word-card"><span class="eng">Olympic</span><span class="pl">olimpijski</span></div>
+        </div>
+
+        <h3>🍕 Jedzenie i Napoje</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">restaurant</span><span class="pl">restauracja</span></div>
+            <div class="word-card"><span class="eng">menu</span><span class="pl">menu</span></div>
+            <div class="word-card"><span class="eng">pizza</span><span class="pl">pizza</span></div>
+            <div class="word-card"><span class="eng">pasta</span><span class="pl">makaron/pasta</span></div>
+            <div class="word-card"><span class="eng">salad</span><span class="pl">sałatka</span></div>
+            <div class="word-card"><span class="eng">soup</span><span class="pl">zupa</span></div>
+            <div class="word-card"><span class="eng">sandwich</span><span class="pl">kanapka</span></div>
+            <div class="word-card"><span class="eng">hamburger</span><span class="pl">hamburger</span></div>
+            <div class="word-card"><span class="eng">chocolate</span><span class="pl">czekolada</span></div>
+            <div class="word-card"><span class="eng">coffee</span><span class="pl">kawa</span></div>
+            <div class="word-card"><span class="eng">tea</span><span class="pl">herbata</span></div>
+            <div class="word-card"><span class="eng">juice</span><span class="pl">sok</span></div>
+            <div class="word-card"><span class="eng">lemonade</span><span class="pl">lemoniada</span></div>
+            <div class="word-card"><span class="eng">alcohol</span><span class="pl">alkohol</span></div>
+            <div class="word-card"><span class="eng">cocktail</span><span class="pl">koktajl</span></div>
+        </div>
+
+        <h3>🏢 Biznes i Praca</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">business</span><span class="pl">biznes</span></div>
+            <div class="word-card"><span class="eng">company</span><span class="pl">firma/kompania</span></div>
+            <div class="word-card"><span class="eng">corporation</span><span class="pl">korporacja</span></div>
+            <div class="word-card"><span class="eng">manager</span><span class="pl">menedżer</span></div>
+            <div class="word-card"><span class="eng">president</span><span class="pl">prezydent/prezes</span></div>
+            <div class="word-card"><span class="eng">office</span><span class="pl">biuro</span></div>
+            <div class="word-card"><span class="eng">contract</span><span class="pl">kontrakt</span></div>
+            <div class="word-card"><span class="eng">project</span><span class="pl">projekt</span></div>
+            <div class="word-card"><span class="eng">budget</span><span class="pl">budżet</span></div>
+            <div class="word-card"><span class="eng">profit</span><span class="pl">profit/zysk</span></div>
+            <div class="word-card"><span class="eng">bank</span><span class="pl">bank</span></div>
+            <div class="word-card"><span class="eng">credit</span><span class="pl">kredyt</span></div>
+            <div class="word-card"><span class="eng">investment</span><span class="pl">inwestycja</span></div>
+            <div class="word-card"><span class="eng">marketing</span><span class="pl">marketing</span></div>
+            <div class="word-card"><span class="eng">client</span><span class="pl">klient</span></div>
+        </div>
+
+        <h3>🚗 Transport</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">transport</span><span class="pl">transport</span></div>
+            <div class="word-card"><span class="eng">taxi</span><span class="pl">taksówka</span></div>
+            <div class="word-card"><span class="eng">bus</span><span class="pl">autobus</span></div>
+            <div class="word-card"><span class="eng">tram</span><span class="pl">tramwaj</span></div>
+            <div class="word-card"><span class="eng">metro</span><span class="pl">metro</span></div>
+            <div class="word-card"><span class="eng">train</span><span class="pl">pociąg</span></div>
+            <div class="word-card"><span class="eng">airport</span><span class="pl">lotnisko</span></div>
+            <div class="word-card"><span class="eng">terminal</span><span class="pl">terminal</span></div>
+            <div class="word-card"><span class="eng">passport</span><span class="pl">paszport</span></div>
+            <div class="word-card"><span class="eng">visa</span><span class="pl">wiza</span></div>
+            <div class="word-card"><span class="eng">ticket</span><span class="pl">bilet</span></div>
+            <div class="word-card"><span class="eng">reservation</span><span class="pl">rezerwacja</span></div>
+            <div class="word-card"><span class="eng">hotel</span><span class="pl">hotel</span></div>
+            <div class="word-card"><span class="eng">tourist</span><span class="pl">turysta</span></div>
+            <div class="word-card"><span class="eng">guide</span><span class="pl">przewodnik</span></div>
+        </div>
+
+        <h3>🏛️ Polityka i Społeczeństwo</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">politics</span><span class="pl">polityka</span></div>
+            <div class="word-card"><span class="eng">democracy</span><span class="pl">demokracja</span></div>
+            <div class="word-card"><span class="eng">parliament</span><span class="pl">parlament</span></div>
+            <div class="word-card"><span class="eng">minister</span><span class="pl">minister</span></div>
+            <div class="word-card"><span class="eng">government</span><span class="pl">rząd</span></div>
+            <div class="word-card"><span class="eng">constitution</span><span class="pl">konstytucja</span></div>
+            <div class="word-card"><span class="eng">election</span><span class="pl">elekcja/wybory</span></div>
+            <div class="word-card"><span class="eng">candidate</span><span class="pl">kandydat</span></div>
+            <div class="word-card"><span class="eng">party</span><span class="pl">partia</span></div>
+            <div class="word-card"><span class="eng">nation</span><span class="pl">naród/nacja</span></div>
+            <div class="word-card"><span class="eng">international</span><span class="pl">międzynarodowy</span></div>
+            <div class="word-card"><span class="eng">diplomat</span><span class="pl">dyplomata</span></div>
+            <div class="word-card"><span class="eng">ambassador</span><span class="pl">ambasador</span></div>
+            <div class="word-card"><span class="eng">organization</span><span class="pl">organizacja</span></div>
+            <div class="word-card"><span class="eng">institution</span><span class="pl">instytucja</span></div>
+        </div>
+
+        <h3>🌍 Inne podobne słowa</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">problem</span><span class="pl">problem</span></div>
+            <div class="word-card"><span class="eng">situation</span><span class="pl">sytuacja</span></div>
+            <div class="word-card"><span class="eng">information</span><span class="pl">informacja</span></div>
+            <div class="word-card"><span class="eng">communication</span><span class="pl">komunikacja</span></div>
+            <div class="word-card"><span class="eng">tradition</span><span class="pl">tradycja</span></div>
+            <div class="word-card"><span class="eng">culture</span><span class="pl">kultura</span></div>
+            <div class="word-card"><span class="eng">nature</span><span class="pl">natura</span></div>
+            <div class="word-card"><span class="eng">climate</span><span class="pl">klimat</span></div>
+            <div class="word-card"><span class="eng">atmosphere</span><span class="pl">atmosfera</span></div>
+            <div class="word-card"><span class="eng">planet</span><span class="pl">planeta</span></div>
+            <div class="word-card"><span class="eng">ocean</span><span class="pl">ocean</span></div>
+            <div class="word-card"><span class="eng">continent</span><span class="pl">kontynent</span></div>
+            <div class="word-card"><span class="eng">region</span><span class="pl">region</span></div>
+            <div class="word-card"><span class="eng">capital</span><span class="pl">stolica/kapitał</span></div>
+            <div class="word-card"><span class="eng">centre</span><span class="pl">centrum</span></div>
+            <div class="word-card"><span class="eng">zone</span><span class="pl">strefa/zona</span></div>
+            <div class="word-card"><span class="eng">sector</span><span class="pl">sektor</span></div>
+            <div class="word-card"><span class="eng">category</span><span class="pl">kategoria</span></div>
+            <div class="word-card"><span class="eng">class</span><span class="pl">klasa</span></div>
+            <div class="word-card"><span class="eng">group</span><span class="pl">grupa</span></div>
+        </div>
+
+        <h2>🔥 CZĘŚĆ 2: Najczęściej używane słowa - 300 słów</h2>
+
+        <h3>👤 Zaimki i podstawy</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">I</span><span class="pl">ja</span></div>
+            <div class="word-card"><span class="eng">you</span><span class="pl">ty/wy</span></div>
+            <div class="word-card"><span class="eng">he</span><span class="pl">on</span></div>
+            <div class="word-card"><span class="eng">she</span><span class="pl">ona</span></div>
+            <div class="word-card"><span class="eng">it</span><span class="pl">to/ono</span></div>
+            <div class="word-card"><span class="eng">we</span><span class="pl">my</span></div>
+            <div class="word-card"><span class="eng">they</span><span class="pl">oni/one</span></div>
+            <div class="word-card"><span class="eng">my</span><span class="pl">mój</span></div>
+            <div class="word-card"><span class="eng">your</span><span class="pl">twój</span></div>
+            <div class="word-card"><span class="eng">his</span><span class="pl">jego</span></div>
+            <div class="word-card"><span class="eng">her</span><span class="pl">jej</span></div>
+            <div class="word-card"><span class="eng">our</span><span class="pl">nasz</span></div>
+            <div class="word-card"><span class="eng">their</span><span class="pl">ich</span></div>
+            <div class="word-card"><span class="eng">this</span><span class="pl">to/ten</span></div>
+            <div class="word-card"><span class="eng">that</span><span class="pl">tamto/tamten</span></div>
+            <div class="word-card"><span class="eng">what</span><span class="pl">co</span></div>
+            <div class="word-card"><span class="eng">who</span><span class="pl">kto</span></div>
+            <div class="word-card"><span class="eng">where</span><span class="pl">gdzie</span></div>
+            <div class="word-card"><span class="eng">when</span><span class="pl">kiedy</span></div>
+            <div class="word-card"><span class="eng">why</span><span class="pl">dlaczego</span></div>
+            <div class="word-card"><span class="eng">how</span><span class="pl">jak</span></div>
+            <div class="word-card"><span class="eng">which</span><span class="pl">który</span></div>
+        </div>
+
+        <h3>🏃 Czasowniki podstawowe</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">be (am/is/are)</span><span class="pl">być</span></div>
+            <div class="word-card"><span class="eng">have</span><span class="pl">mieć</span></div>
+            <div class="word-card"><span class="eng">do</span><span class="pl">robić</span></div>
+            <div class="word-card"><span class="eng">go</span><span class="pl">iść/jechać</span></div>
+            <div class="word-card"><span class="eng">come</span><span class="pl">przychodzić</span></div>
+            <div class="word-card"><span class="eng">get</span><span class="pl">dostać/otrzymać</span></div>
+            <div class="word-card"><span class="eng">make</span><span class="pl">robić/tworzyć</span></div>
+            <div class="word-card"><span class="eng">know</span><span class="pl">wiedzieć/znać</span></div>
+            <div class="word-card"><span class="eng">think</span><span class="pl">myśleć</span></div>
+            <div class="word-card"><span class="eng">take</span><span class="pl">brać</span></div>
+            <div class="word-card"><span class="eng">see</span><span class="pl">widzieć</span></div>
+            <div class="word-card"><span class="eng">want</span><span class="pl">chcieć</span></div>
+            <div class="word-card"><span class="eng">look</span><span class="pl">patrzeć</span></div>
+            <div class="word-card"><span class="eng">use</span><span class="pl">używać</span></div>
+            <div class="word-card"><span class="eng">find</span><span class="pl">znajdować</span></div>
+            <div class="word-card"><span class="eng">give</span><span class="pl">dawać</span></div>
+            <div class="word-card"><span class="eng">tell</span><span class="pl">mówić/powiedzieć</span></div>
+            <div class="word-card"><span class="eng">work</span><span class="pl">pracować</span></div>
+            <div class="word-card"><span class="eng">call</span><span class="pl">dzwonić/wołać</span></div>
+            <div class="word-card"><span class="eng">try</span><span class="pl">próbować</span></div>
+            <div class="word-card"><span class="eng">ask</span><span class="pl">pytać</span></div>
+            <div class="word-card"><span class="eng">need</span><span class="pl">potrzebować</span></div>
+            <div class="word-card"><span class="eng">feel</span><span class="pl">czuć</span></div>
+            <div class="word-card"><span class="eng">become</span><span class="pl">stawać się</span></div>
+            <div class="word-card"><span class="eng">leave</span><span class="pl">wychodzić/zostawiać</span></div>
+            <div class="word-card"><span class="eng">put</span><span class="pl">kłaść</span></div>
+            <div class="word-card"><span class="eng">mean</span><span class="pl">znaczyć</span></div>
+            <div class="word-card"><span class="eng">keep</span><span class="pl">trzymać</span></div>
+            <div class="word-card"><span class="eng">let</span><span class="pl">pozwalać</span></div>
+            <div class="word-card"><span class="eng">begin</span><span class="pl">zaczynać</span></div>
+            <div class="word-card"><span class="eng">seem</span><span class="pl">wydawać się</span></div>
+            <div class="word-card"><span class="eng">help</span><span class="pl">pomagać</span></div>
+            <div class="word-card"><span class="eng">show</span><span class="pl">pokazywać</span></div>
+            <div class="word-card"><span class="eng">hear</span><span class="pl">słyszeć</span></div>
+            <div class="word-card"><span class="eng">play</span><span class="pl">grać/bawić się</span></div>
+            <div class="word-card"><span class="eng">run</span><span class="pl">biegać</span></div>
+            <div class="word-card"><span class="eng">move</span><span class="pl">ruszać się</span></div>
+            <div class="word-card"><span class="eng">live</span><span class="pl">żyć/mieszkać</span></div>
+            <div class="word-card"><span class="eng">believe</span><span class="pl">wierzyć</span></div>
+            <div class="word-card"><span class="eng">hold</span><span class="pl">trzymać</span></div>
+            <div class="word-card"><span class="eng">bring</span><span class="pl">przynosić</span></div>
+            <div class="word-card"><span class="eng">happen</span><span class="pl">zdarzać się</span></div>
+            <div class="word-card"><span class="eng">write</span><span class="pl">pisać</span></div>
+            <div class="word-card"><span class="eng">sit</span><span class="pl">siedzieć</span></div>
+            <div class="word-card"><span class="eng">stand</span><span class="pl">stać</span></div>
+            <div class="word-card"><span class="eng">lose</span><span class="pl">tracić/przegrywać</span></div>
+            <div class="word-card"><span class="eng">pay</span><span class="pl">płacić</span></div>
+            <div class="word-card"><span class="eng">meet</span><span class="pl">spotykać</span></div>
+            <div class="word-card"><span class="eng">include</span><span class="pl">zawierać</span></div>
+            <div class="word-card"><span class="eng">continue</span><span class="pl">kontynuować</span></div>
+            <div class="word-card"><span class="eng">learn</span><span class="pl">uczyć się</span></div>
+            <div class="word-card"><span class="eng">change</span><span class="pl">zmieniać</span></div>
+            <div class="word-card"><span class="eng">watch</span><span class="pl">oglądać</span></div>
+            <div class="word-card"><span class="eng">follow</span><span class="pl">śledzić/podążać</span></div>
+            <div class="word-card"><span class="eng">stop</span><span class="pl">zatrzymywać</span></div>
+            <div class="word-card"><span class="eng">create</span><span class="pl">tworzyć</span></div>
+            <div class="word-card"><span class="eng">speak</span><span class="pl">mówić</span></div>
+            <div class="word-card"><span class="eng">read</span><span class="pl">czytać</span></div>
+            <div class="word-card"><span class="eng">spend</span><span class="pl">wydawać/spędzać</span></div>
+            <div class="word-card"><span class="eng">grow</span><span class="pl">rosnąć</span></div>
+            <div class="word-card"><span class="eng">open</span><span class="pl">otwierać</span></div>
+            <div class="word-card"><span class="eng">walk</span><span class="pl">chodzić</span></div>
+            <div class="word-card"><span class="eng">win</span><span class="pl">wygrywać</span></div>
+            <div class="word-card"><span class="eng">teach</span><span class="pl">uczyć</span></div>
+            <div class="word-card"><span class="eng">offer</span><span class="pl">oferować</span></div>
+            <div class="word-card"><span class="eng">remember</span><span class="pl">pamiętać</span></div>
+            <div class="word-card"><span class="eng">love</span><span class="pl">kochać</span></div>
+            <div class="word-card"><span class="eng">consider</span><span class="pl">rozważać</span></div>
+            <div class="word-card"><span class="eng">appear</span><span class="pl">pojawiać się</span></div>
+            <div class="word-card"><span class="eng">buy</span><span class="pl">kupować</span></div>
+            <div class="word-card"><span class="eng">wait</span><span class="pl">czekać</span></div>
+            <div class="word-card"><span class="eng">serve</span><span class="pl">służyć</span></div>
+            <div class="word-card"><span class="eng">die</span><span class="pl">umierać</span></div>
+            <div class="word-card"><span class="eng">send</span><span class="pl">wysyłać</span></div>
+            <div class="word-card"><span class="eng">expect</span><span class="pl">oczekiwać</span></div>
+            <div class="word-card"><span class="eng">build</span><span class="pl">budować</span></div>
+            <div class="word-card"><span class="eng">stay</span><span class="pl">zostawać</span></div>
+            <div class="word-card"><span class="eng">fall</span><span class="pl">upadać</span></div>
+            <div class="word-card"><span class="eng">cut</span><span class="pl">ciąć</span></div>
+            <div class="word-card"><span class="eng">reach</span><span class="pl">osiągać</span></div>
+            <div class="word-card"><span class="eng">kill</span><span class="pl">zabijać</span></div>
+            <div class="word-card"><span class="eng">remain</span><span class="pl">pozostawać</span></div>
+        </div>
+
+        <h3>🎨 Przymiotniki</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">good</span><span class="pl">dobry</span></div>
+            <div class="word-card"><span class="eng">bad</span><span class="pl">zły</span></div>
+            <div class="word-card"><span class="eng">new</span><span class="pl">nowy</span></div>
+            <div class="word-card"><span class="eng">old</span><span class="pl">stary</span></div>
+            <div class="word-card"><span class="eng">big</span><span class="pl">duży</span></div>
+            <div class="word-card"><span class="eng">small</span><span class="pl">mały</span></div>
+            <div class="word-card"><span class="eng">long</span><span class="pl">długi</span></div>
+            <div class="word-card"><span class="eng">short</span><span class="pl">krótki</span></div>
+            <div class="word-card"><span class="eng">high</span><span class="pl">wysoki</span></div>
+            <div class="word-card"><span class="eng">low</span><span class="pl">niski</span></div>
+            <div class="word-card"><span class="eng">young</span><span class="pl">młody</span></div>
+            <div class="word-card"><span class="eng">great</span><span class="pl">świetny/wielki</span></div>
+            <div class="word-card"><span class="eng">little</span><span class="pl">mały/trochę</span></div>
+            <div class="word-card"><span class="eng">different</span><span class="pl">różny</span></div>
+            <div class="word-card"><span class="eng">same</span><span class="pl">taki sam</span></div>
+            <div class="word-card"><span class="eng">important</span><span class="pl">ważny</span></div>
+            <div class="word-card"><span class="eng">first</span><span class="pl">pierwszy</span></div>
+            <div class="word-card"><span class="eng">last</span><span class="pl">ostatni</span></div>
+            <div class="word-card"><span class="eng">next</span><span class="pl">następny</span></div>
+            <div class="word-card"><span class="eng">early</span><span class="pl">wczesny</span></div>
+            <div class="word-card"><span class="eng">late</span><span class="pl">późny</span></div>
+            <div class="word-card"><span class="eng">right</span><span class="pl">prawy/prawidłowy</span></div>
+            <div class="word-card"><span class="eng">left</span><span class="pl">lewy</span></div>
+            <div class="word-card"><span class="eng">wrong</span><span class="pl">błędny/zły</span></div>
+            <div class="word-card"><span class="eng">true</span><span class="pl">prawdziwy</span></div>
+            <div class="word-card"><span class="eng">false</span><span class="pl">fałszywy</span></div>
+            <div class="word-card"><span class="eng">easy</span><span class="pl">łatwy</span></div>
+            <div class="word-card"><span class="eng">hard</span><span class="pl">trudny/twardy</span></div>
+            <div class="word-card"><span class="eng">fast</span><span class="pl">szybki</span></div>
+            <div class="word-card"><span class="eng">slow</span><span class="pl">wolny</span></div>
+            <div class="word-card"><span class="eng">hot</span><span class="pl">gorący</span></div>
+            <div class="word-card"><span class="eng">cold</span><span class="pl">zimny</span></div>
+            <div class="word-card"><span class="eng">warm</span><span class="pl">ciepły</span></div>
+            <div class="word-card"><span class="eng">cool</span><span class="pl">chłodny/fajny</span></div>
+            <div class="word-card"><span class="eng">beautiful</span><span class="pl">piękny</span></div>
+            <div class="word-card"><span class="eng">ugly</span><span class="pl">brzydki</span></div>
+            <div class="word-card"><span class="eng">happy</span><span class="pl">szczęśliwy</span></div>
+            <div class="word-card"><span class="eng">sad</span><span class="pl">smutny</span></div>
+            <div class="word-card"><span class="eng">angry</span><span class="pl">zły/wściekły</span></div>
+            <div class="word-card"><span class="eng">tired</span><span class="pl">zmęczony</span></div>
+            <div class="word-card"><span class="eng">hungry</span><span class="pl">głodny</span></div>
+            <div class="word-card"><span class="eng">thirsty</span><span class="pl">spragniony</span></div>
+            <div class="word-card"><span class="eng">full</span><span class="pl">pełny/najedzony</span></div>
+            <div class="word-card"><span class="eng">empty</span><span class="pl">pusty</span></div>
+            <div class="word-card"><span class="eng">rich</span><span class="pl">bogaty</span></div>
+            <div class="word-card"><span class="eng">poor</span><span class="pl">biedny</span></div>
+            <div class="word-card"><span class="eng">strong</span><span class="pl">silny</span></div>
+            <div class="word-card"><span class="eng">weak</span><span class="pl">słaby</span></div>
+            <div class="word-card"><span class="eng">clean</span><span class="pl">czysty</span></div>
+            <div class="word-card"><span class="eng">dirty</span><span class="pl">brudny</span></div>
+            <div class="word-card"><span class="eng">safe</span><span class="pl">bezpieczny</span></div>
+            <div class="word-card"><span class="eng">dangerous</span><span class="pl">niebezpieczny</span></div>
+            <div class="word-card"><span class="eng">free</span><span class="pl">wolny/darmowy</span></div>
+            <div class="word-card"><span class="eng">busy</span><span class="pl">zajęty</span></div>
+            <div class="word-card"><span class="eng">ready</span><span class="pl">gotowy</span></div>
+            <div class="word-card"><span class="eng">sure</span><span class="pl">pewny</span></div>
+            <div class="word-card"><span class="eng">possible</span><span class="pl">możliwy</span></div>
+            <div class="word-card"><span class="eng">impossible</span><span class="pl">niemożliwy</span></div>
+            <div class="word-card"><span class="eng">real</span><span class="pl">prawdziwy</span></div>
+            <div class="word-card"><span class="eng">special</span><span class="pl">specjalny</span></div>
+        </div>
+
+        <h3>📦 Rzeczowniki podstawowe</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">time</span><span class="pl">czas</span></div>
+            <div class="word-card"><span class="eng">year</span><span class="pl">rok</span></div>
+            <div class="word-card"><span class="eng">people</span><span class="pl">ludzie</span></div>
+            <div class="word-card"><span class="eng">way</span><span class="pl">droga/sposób</span></div>
+            <div class="word-card"><span class="eng">day</span><span class="pl">dzień</span></div>
+            <div class="word-card"><span class="eng">man</span><span class="pl">mężczyzna</span></div>
+            <div class="word-card"><span class="eng">woman</span><span class="pl">kobieta</span></div>
+            <div class="word-card"><span class="eng">child</span><span class="pl">dziecko</span></div>
+            <div class="word-card"><span class="eng">world</span><span class="pl">świat</span></div>
+            <div class="word-card"><span class="eng">life</span><span class="pl">życie</span></div>
+            <div class="word-card"><span class="eng">hand</span><span class="pl">ręka</span></div>
+            <div class="word-card"><span class="eng">part</span><span class="pl">część</span></div>
+            <div class="word-card"><span class="eng">place</span><span class="pl">miejsce</span></div>
+            <div class="word-card"><span class="eng">case</span><span class="pl">przypadek</span></div>
+            <div class="word-card"><span class="eng">week</span><span class="pl">tydzień</span></div>
+            <div class="word-card"><span class="eng">point</span><span class="pl">punkt</span></div>
+            <div class="word-card"><span class="eng">fact</span><span class="pl">fakt</span></div>
+            <div class="word-card"><span class="eng">home</span><span class="pl">dom</span></div>
+            <div class="word-card"><span class="eng">water</span><span class="pl">woda</span></div>
+            <div class="word-card"><span class="eng">room</span><span class="pl">pokój</span></div>
+            <div class="word-card"><span class="eng">mother</span><span class="pl">matka</span></div>
+            <div class="word-card"><span class="eng">father</span><span class="pl">ojciec</span></div>
+            <div class="word-card"><span class="eng">area</span><span class="pl">obszar</span></div>
+            <div class="word-card"><span class="eng">money</span><span class="pl">pieniądze</span></div>
+            <div class="word-card"><span class="eng">story</span><span class="pl">historia/opowieść</span></div>
+            <div class="word-card"><span class="eng">month</span><span class="pl">miesiąc</span></div>
+            <div class="word-card"><span class="eng">lot</span><span class="pl">dużo</span></div>
+            <div class="word-card"><span class="eng">book</span><span class="pl">książka</span></div>
+            <div class="word-card"><span class="eng">eye</span><span class="pl">oko</span></div>
+            <div class="word-card"><span class="eng">job</span><span class="pl">praca</span></div>
+            <div class="word-card"><span class="eng">word</span><span class="pl">słowo</span></div>
+            <div class="word-card"><span class="eng">side</span><span class="pl">strona</span></div>
+            <div class="word-card"><span class="eng">head</span><span class="pl">głowa</span></div>
+            <div class="word-card"><span class="eng">house</span><span class="pl">dom</span></div>
+            <div class="word-card"><span class="eng">friend</span><span class="pl">przyjaciel</span></div>
+            <div class="word-card"><span class="eng">hour</span><span class="pl">godzina</span></div>
+            <div class="word-card"><span class="eng">game</span><span class="pl">gra</span></div>
+            <div class="word-card"><span class="eng">line</span><span class="pl">linia</span></div>
+            <div class="word-card"><span class="eng">end</span><span class="pl">koniec</span></div>
+            <div class="word-card"><span class="eng">member</span><span class="pl">członek</span></div>
+            <div class="word-card"><span class="eng">law</span><span class="pl">prawo</span></div>
+            <div class="word-card"><span class="eng">car</span><span class="pl">samochód</span></div>
+            <div class="word-card"><span class="eng">city</span><span class="pl">miasto</span></div>
+            <div class="word-card"><span class="eng">name</span><span class="pl">imię/nazwa</span></div>
+            <div class="word-card"><span class="eng">family</span><span class="pl">rodzina</span></div>
+            <div class="word-card"><span class="eng">door</span><span class="pl">drzwi</span></div>
+            <div class="word-card"><span class="eng">table</span><span class="pl">stół</span></div>
+            <div class="word-card"><span class="eng">window</span><span class="pl">okno</span></div>
+            <div class="word-card"><span class="eng">street</span><span class="pl">ulica</span></div>
+            <div class="word-card"><span class="eng">food</span><span class="pl">jedzenie</span></div>
+        </div>
+
+        <h3>🔗 Przyimki i spójniki</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">in</span><span class="pl">w</span></div>
+            <div class="word-card"><span class="eng">on</span><span class="pl">na</span></div>
+            <div class="word-card"><span class="eng">at</span><span class="pl">przy/o (godzina)</span></div>
+            <div class="word-card"><span class="eng">to</span><span class="pl">do</span></div>
+            <div class="word-card"><span class="eng">for</span><span class="pl">dla</span></div>
+            <div class="word-card"><span class="eng">with</span><span class="pl">z</span></div>
+            <div class="word-card"><span class="eng">from</span><span class="pl">od/z</span></div>
+            <div class="word-card"><span class="eng">by</span><span class="pl">przez/przy</span></div>
+            <div class="word-card"><span class="eng">about</span><span class="pl">o/około</span></div>
+            <div class="word-card"><span class="eng">into</span><span class="pl">do (wewnątrz)</span></div>
+            <div class="word-card"><span class="eng">through</span><span class="pl">przez</span></div>
+            <div class="word-card"><span class="eng">after</span><span class="pl">po</span></div>
+            <div class="word-card"><span class="eng">before</span><span class="pl">przed</span></div>
+            <div class="word-card"><span class="eng">between</span><span class="pl">między</span></div>
+            <div class="word-card"><span class="eng">under</span><span class="pl">pod</span></div>
+            <div class="word-card"><span class="eng">over</span><span class="pl">nad</span></div>
+            <div class="word-card"><span class="eng">without</span><span class="pl">bez</span></div>
+            <div class="word-card"><span class="eng">and</span><span class="pl">i</span></div>
+            <div class="word-card"><span class="eng">or</span><span class="pl">lub</span></div>
+            <div class="word-card"><span class="eng">but</span><span class="pl">ale</span></div>
+            <div class="word-card"><span class="eng">because</span><span class="pl">ponieważ</span></div>
+            <div class="word-card"><span class="eng">if</span><span class="pl">jeśli</span></div>
+            <div class="word-card"><span class="eng">so</span><span class="pl">więc</span></div>
+            <div class="word-card"><span class="eng">than</span><span class="pl">niż</span></div>
+        </div>
+
+        <h3>⏰ Czas i liczby</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">now</span><span class="pl">teraz</span></div>
+            <div class="word-card"><span class="eng">today</span><span class="pl">dzisiaj</span></div>
+            <div class="word-card"><span class="eng">tomorrow</span><span class="pl">jutro</span></div>
+            <div class="word-card"><span class="eng">yesterday</span><span class="pl">wczoraj</span></div>
+            <div class="word-card"><span class="eng">always</span><span class="pl">zawsze</span></div>
+            <div class="word-card"><span class="eng">never</span><span class="pl">nigdy</span></div>
+            <div class="word-card"><span class="eng">sometimes</span><span class="pl">czasami</span></div>
+            <div class="word-card"><span class="eng">often</span><span class="pl">często</span></div>
+            <div class="word-card"><span class="eng">usually</span><span class="pl">zwykle</span></div>
+            <div class="word-card"><span class="eng">already</span><span class="pl">już</span></div>
+            <div class="word-card"><span class="eng">still</span><span class="pl">wciąż</span></div>
+            <div class="word-card"><span class="eng">yet</span><span class="pl">jeszcze</span></div>
+            <div class="word-card"><span class="eng">soon</span><span class="pl">wkrótce</span></div>
+            <div class="word-card"><span class="eng">again</span><span class="pl">znowu</span></div>
+            <div class="word-card"><span class="eng">one</span><span class="pl">jeden</span></div>
+            <div class="word-card"><span class="eng">two</span><span class="pl">dwa</span></div>
+            <div class="word-card"><span class="eng">three</span><span class="pl">trzy</span></div>
+            <div class="word-card"><span class="eng">four</span><span class="pl">cztery</span></div>
+            <div class="word-card"><span class="eng">five</span><span class="pl">pięć</span></div>
+            <div class="word-card"><span class="eng">ten</span><span class="pl">dziesięć</span></div>
+            <div class="word-card"><span class="eng">hundred</span><span class="pl">sto</span></div>
+            <div class="word-card"><span class="eng">thousand</span><span class="pl">tysiąc</span></div>
+            <div class="word-card"><span class="eng">million</span><span class="pl">milion</span></div>
+        </div>
+
+        <h3>💬 Przydatne zwroty</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">Hello</span><span class="pl">Cześć</span></div>
+            <div class="word-card"><span class="eng">Goodbye</span><span class="pl">Do widzenia</span></div>
+            <div class="word-card"><span class="eng">Please</span><span class="pl">Proszę</span></div>
+            <div class="word-card"><span class="eng">Thank you</span><span class="pl">Dziękuję</span></div>
+            <div class="word-card"><span class="eng">You're welcome</span><span class="pl">Proszę bardzo</span></div>
+            <div class="word-card"><span class="eng">Sorry</span><span class="pl">Przepraszam</span></div>
+            <div class="word-card"><span class="eng">Excuse me</span><span class="pl">Przepraszam</span></div>
+            <div class="word-card"><span class="eng">Yes</span><span class="pl">Tak</span></div>
+            <div class="word-card"><span class="eng">No</span><span class="pl">Nie</span></div>
+            <div class="word-card"><span class="eng">Maybe</span><span class="pl">Może</span></div>
+            <div class="word-card"><span class="eng">Of course</span><span class="pl">Oczywiście</span></div>
+            <div class="word-card"><span class="eng">I don't know</span><span class="pl">Nie wiem</span></div>
+            <div class="word-card"><span class="eng">I understand</span><span class="pl">Rozumiem</span></div>
+            <div class="word-card"><span class="eng">I don't understand</span><span class="pl">Nie rozumiem</span></div>
+            <div class="word-card"><span class="eng">How are you?</span><span class="pl">Jak się masz?</span></div>
+            <div class="word-card"><span class="eng">I'm fine</span><span class="pl">Dobrze się mam</span></div>
+            <div class="word-card"><span class="eng">What's your name?</span><span class="pl">Jak masz na imię?</span></div>
+            <div class="word-card"><span class="eng">My name is...</span><span class="pl">Mam na imię...</span></div>
+            <div class="word-card"><span class="eng">Nice to meet you</span><span class="pl">Miło mi cię poznać</span></div>
+            <div class="word-card"><span class="eng">How much?</span><span class="pl">Ile kosztuje?</span></div>
+            <div class="word-card"><span class="eng">Where is...?</span><span class="pl">Gdzie jest...?</span></div>
+            <div class="word-card"><span class="eng">I need help</span><span class="pl">Potrzebuję pomocy</span></div>
+            <div class="word-card"><span class="eng">Can you help me?</span><span class="pl">Czy możesz mi pomóc?</span></div>
+            <div class="word-card"><span class="eng">I would like...</span><span class="pl">Chciałbym...</span></div>
+            <div class="word-card"><span class="eng">What time is it?</span><span class="pl">Która godzina?</span></div>
+            <div class="word-card"><span class="eng">See you later</span><span class="pl">Do zobaczenia</span></div>
+            <div class="word-card"><span class="eng">Good morning</span><span class="pl">Dzień dobry</span></div>
+            <div class="word-card"><span class="eng">Good night</span><span class="pl">Dobranoc</span></div>
+            <div class="word-card"><span class="eng">Have a nice day</span><span class="pl">Miłego dnia</span></div>
+            <div class="word-card"><span class="eng">Take care</span><span class="pl">Trzymaj się</span></div>
+        </div>
+
+        <h3>🔤 Przysłówki</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">very</span><span class="pl">bardzo</span></div>
+            <div class="word-card"><span class="eng">really</span><span class="pl">naprawdę</span></div>
+            <div class="word-card"><span class="eng">just</span><span class="pl">tylko/właśnie</span></div>
+            <div class="word-card"><span class="eng">also</span><span class="pl">także</span></div>
+            <div class="word-card"><span class="eng">only</span><span class="pl">tylko</span></div>
+            <div class="word-card"><span class="eng">even</span><span class="pl">nawet</span></div>
+            <div class="word-card"><span class="eng">here</span><span class="pl">tutaj</span></div>
+            <div class="word-card"><span class="eng">there</span><span class="pl">tam</span></div>
+            <div class="word-card"><span class="eng">well</span><span class="pl">dobrze</span></div>
+            <div class="word-card"><span class="eng">back</span><span class="pl">z powrotem</span></div>
+            <div class="word-card"><span class="eng">up</span><span class="pl">w górę</span></div>
+            <div class="word-card"><span class="eng">down</span><span class="pl">w dół</span></div>
+            <div class="word-card"><span class="eng">out</span><span class="pl">na zewnątrz</span></div>
+            <div class="word-card"><span class="eng">away</span><span class="pl">daleko/precz</span></div>
+            <div class="word-card"><span class="eng">together</span><span class="pl">razem</span></div>
+            <div class="word-card"><span class="eng">enough</span><span class="pl">wystarczająco</span></div>
+            <div class="word-card"><span class="eng">almost</span><span class="pl">prawie</span></div>
+            <div class="word-card"><span class="eng">probably</span><span class="pl">prawdopodobnie</span></div>
+            <div class="word-card"><span class="eng">actually</span><span class="pl">właściwie</span></div>
+            <div class="word-card"><span class="eng">especially</span><span class="pl">szczególnie</span></div>
+        </div>
+
+        <h3>🏠 Dom i życie codzienne</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">bed</span><span class="pl">łóżko</span></div>
+            <div class="word-card"><span class="eng">chair</span><span class="pl">krzesło</span></div>
+            <div class="word-card"><span class="eng">kitchen</span><span class="pl">kuchnia</span></div>
+            <div class="word-card"><span class="eng">bathroom</span><span class="pl">łazienka</span></div>
+            <div class="word-card"><span class="eng">bedroom</span><span class="pl">sypialnia</span></div>
+            <div class="word-card"><span class="eng">floor</span><span class="pl">podłoga/piętro</span></div>
+            <div class="word-card"><span class="eng">wall</span><span class="pl">ściana</span></div>
+            <div class="word-card"><span class="eng">light</span><span class="pl">światło</span></div>
+            <div class="word-card"><span class="eng">key</span><span class="pl">klucz</span></div>
+            <div class="word-card"><span class="eng">phone</span><span class="pl">telefon</span></div>
+            <div class="word-card"><span class="eng">clothes</span><span class="pl">ubrania</span></div>
+            <div class="word-card"><span class="eng">shoes</span><span class="pl">buty</span></div>
+            <div class="word-card"><span class="eng">bag</span><span class="pl">torba</span></div>
+            <div class="word-card"><span class="eng">paper</span><span class="pl">papier</span></div>
+            <div class="word-card"><span class="eng">pen</span><span class="pl">długopis</span></div>
+        </div>
+
+        <h3>🌳 Natura i pogoda</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">sun</span><span class="pl">słońce</span></div>
+            <div class="word-card"><span class="eng">moon</span><span class="pl">księżyc</span></div>
+            <div class="word-card"><span class="eng">star</span><span class="pl">gwiazda</span></div>
+            <div class="word-card"><span class="eng">sky</span><span class="pl">niebo</span></div>
+            <div class="word-card"><span class="eng">rain</span><span class="pl">deszcz</span></div>
+            <div class="word-card"><span class="eng">snow</span><span class="pl">śnieg</span></div>
+            <div class="word-card"><span class="eng">wind</span><span class="pl">wiatr</span></div>
+            <div class="word-card"><span class="eng">cloud</span><span class="pl">chmura</span></div>
+            <div class="word-card"><span class="eng">tree</span><span class="pl">drzewo</span></div>
+            <div class="word-card"><span class="eng">flower</span><span class="pl">kwiat</span></div>
+            <div class="word-card"><span class="eng">river</span><span class="pl">rzeka</span></div>
+            <div class="word-card"><span class="eng">sea</span><span class="pl">morze</span></div>
+            <div class="word-card"><span class="eng">mountain</span><span class="pl">góra</span></div>
+            <div class="word-card"><span class="eng">forest</span><span class="pl">las</span></div>
+            <div class="word-card"><span class="eng">animal</span><span class="pl">zwierzę</span></div>
+            <div class="word-card"><span class="eng">dog</span><span class="pl">pies</span></div>
+            <div class="word-card"><span class="eng">cat</span><span class="pl">kot</span></div>
+            <div class="word-card"><span class="eng">bird</span><span class="pl">ptak</span></div>
+            <div class="word-card"><span class="eng">fish</span><span class="pl">ryba</span></div>
+            <div class="word-card"><span class="eng">horse</span><span class="pl">koń</span></div>
+        </div>
+
+        <h3>👔 Ciało i wygląd</h3>
+        <div class="words-grid">
+            <div class="word-card"><span class="eng">body</span><span class="pl">ciało</span></div>
+            <div class="word-card"><span class="eng">face</span><span class="pl">twarz</span></div>
+            <div class="word-card"><span class="eng">hair</span><span class="pl">włosy</span></div>
+            <div class="word-card"><span class="eng">nose</span><span class="pl">nos</span></div>
+            <div class="word-card"><span class="eng">mouth</span><span class="pl">usta</span></div>
+            <div class="word-card"><span class="eng">ear</span><span class="pl">ucho</span></div>
+            <div class="word-card"><span class="eng">arm</span><span class="pl">ramię</span></div>
+            <div class="word-card"><span class="eng">leg</span><span class="pl">noga</span></div>
+            <div class="word-card"><span class="eng">foot</span><span class="pl">stopa</span></div>
+            <div class="word-card"><span class="eng">finger</span><span class="pl">palec</span></div>
+            <div class="word-card"><span class="eng">heart</span><span class="pl">serce</span></div>
+            <div class="word-card"><span class="eng">blood</span><span class="pl">krew</span></div>
+            <div class="word-card"><span class="eng">skin</span><span class="pl">skóra</span></div>
+            <div class="word-card"><span class="eng">tooth</span><span class="pl">ząb</span></div>
+            <div class="word-card"><span class="eng">back</span><span class="pl">plecy</span></div>
+        </div>
+    </div>
+    <div class="counter" id="counter">0 / 500</div>
+    <script>
+        function filterWords() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const cards = document.querySelectorAll('.word-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(search)) { card.style.display = 'flex'; visible++; }
+                else { card.style.display = 'none'; }
+            });
+            document.getElementById('counter').textContent = visible + ' / 500';
+        }
+        document.getElementById('counter').textContent = document.querySelectorAll('.word-card').length + ' / 500';
+    </script>
+</body>
+</html>
+
